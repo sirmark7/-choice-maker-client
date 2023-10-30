@@ -8,13 +8,19 @@
   </form>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref ,onBeforeMount} from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 const auth = useAuthStore()
-
 const user = ref({})
 const router = useRouter()
+
+
+onBeforeMount(() => {
+  if(auth.isAuthenticated){
+    router.push('home')
+  }
+})
 const details = {
   folio_number: 12345,
   password: 'password'

@@ -1,7 +1,7 @@
 <template >
     <div class='candidates'>
         <CandidateCard 
-        v-for="(candidate,index) in list" 
+        v-for="(candidate,index) in candidates" 
         :key="index"
         :img="candidate.img"
         :name="candidate.name"
@@ -11,30 +11,17 @@
 </template>
 <script setup>
 import CandidateCard from './CandidateCard.vue'
+import { candidateList } from '../../data/data';
+import {useCandidates} from '../../stores/candidates'
+import { onMounted,onBeforeMount } from 'vue';
 // const activeCandidates = list.filter((item)=>item.position == position)
 // const {position} =defineProps(['position'])
-const list=[
-    {name:'Mark',
-    position:'president',
-    img:'avatar-m.png',
-    text:'orem ipsum dolor sit amet consectetur adipisicing elit. Commodi, nam? Natus soluta quaerat suscipit'
-},
-    {name:'Joyce',
-    position:'girls_prefect',
-    img:'avatar-f.jpg',
-    text:'orem ipsum dolor sit amet consectetur adipisicing elit. Commodi, nam? Natus soluta quaerat suscipit'
-},
-    {name:'Ato',
-    position:'boys_prefect',
-    img:'avatar-m.png',
-    text:'orem ipsum dolor sit amet consectetur adipisicing elit. Commodi, nam? Natus soluta quaerat suscipit'
-},
-    {name:'Collins',
-    position:'president',
-    img:'avatar-m.png',
-    text:'orem ipsum dolor sit amet consectetur adipisicing elit. Commodi, nam? Natus soluta quaerat suscipit'
-},
-]
+const {candidates,setCandidates}=useCandidates()
+onBeforeMount(() => {
+    setCandidates(candidateList)
+})
+
+
 </script>
 <style lang="css">
     .candidates{

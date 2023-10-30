@@ -5,7 +5,7 @@ import AuthView from '../views/AuthView.vue'
 import LoginPage from '../components/LoginPage.vue'
 import SignupPage from '../components/SignupPage.vue'
 import AdminAuth from '../components/AdminAuth.vue'
-import ProfileCard from '../components/ProfileCard.vue'
+import ProfileCard from '../components/homepage/ProfileCard.vue'
 import { useAuthStore } from '../stores/auth'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
