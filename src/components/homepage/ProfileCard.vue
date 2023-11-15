@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="profile-page">
-      <button @click="$router.back()" class="candidate-nav"><img src="/images/arrow-right.svg" alt="back home">Back to Candidates</button>
+      <button @click="$router.back()" class="candidate-nav"><ReturnDownBack class="back-icon"/>Back</button>
     <img class="profile-img" :src="`/images/${profile?.img}`" :alt="profile?.name">
     <h1>{{$route.params.id}}</h1>
     <div class="profile-details">
@@ -9,7 +9,7 @@
         <h3>Biography</h3>
         <p>{{ profile?.text }}</p>
         <h3>Policies</h3>
-        <ul>
+        <ul class="policies">
           <li v-for="(policy,i) in profile?.policies" :key="i" >{{ policy }}</li>
         </ul>
       </div>
@@ -19,16 +19,17 @@
   </template>
   <script setup>
 
-  import {ref, onBeforeMount,onMounted } from 'vue';
+  import {ref,onMounted } from 'vue';
   import { candidateList } from '../../data/data';
   import { useRoute } from 'vue-router';
+  import { ReturnDownBack } from '@vicons/ionicons5'
   const profile=ref()
   const route =useRoute()
+
   
   onMounted(()=>{
 profile.value=candidateList.find((candidate)=>candidate.name==route.params.id)
   })
-
 
   
   </script>
@@ -59,7 +60,7 @@ h3{
     border-bottom-left-radius:30% ;
     border-bottom-right-radius: 30%;
     content: '';
-    height: 30vh;
+    height: 20vh;
     width: 100%;
     background: #22a148;
   }
@@ -74,7 +75,9 @@ h3{
   font-size: 20px;
   font-weight: 500;
   z-index: 10;
+  width: 100%;
   cursor: pointer;
+   font-size: 12px;
 
 }
 .candidate-nav:hover{
@@ -83,14 +86,13 @@ h3{
 .profile-img{
   z-index: 10;
   border-radius: 100%;
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
 }
 
-.candidate-nav img{
-  transform: scale(-1);
-  object-fit: contain;
-  height: 100%;
+.back-icon {
+  height: 20px;
+  font-weight: 800;
 }
 
 .profile-details{
@@ -98,7 +100,14 @@ h3{
   display: flex;
 }
 
-
+.policies{
+  overflow-y: scroll;
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+  gap: 20px;
+}
 
 </style>
   
