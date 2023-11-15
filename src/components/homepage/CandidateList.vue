@@ -1,37 +1,47 @@
 <template >
-    <div class='candidates'>
+    <Swiper 
+    class='candidates'
+    :direction="'vertical'"
+    :slidesPerView="2.2"
+    :freeMode="true"
+    :scrollbar="true"
+    :mousewheel="true"
+    :spaceBetween="10"
+    :modules="modules"
+    >
+    <SwiperSlide
+    v-for="(candidate,index) in candidates" 
+    :key="index"
+    >
         <CandidateCard 
-        v-for="(candidate,index) in candidates" 
-        :key="index"
         :img="candidate.img"
         :name="candidate.name"
         :text="candidate.text"
         />
-    </div>
+    </SwiperSlide>
+    </Swiper>
 </template>
 <script setup>
+import { SwiperSlide, Swiper } from 'swiper/vue';
+import {  FreeMode, Scrollbar, Mousewheel } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/mousewheel'
+import 'swiper/css/free-mode';
+import 'swiper/css/scrollbar';
+
 import CandidateCard from './CandidateCard.vue'
-import { candidateList } from '../../data/data';
-import {useCandidates} from '../../stores/candidates'
-import { onMounted,onBeforeMount } from 'vue';
-// const activeCandidates = list.filter((item)=>item.position == position)
-// const {position} =defineProps(['position'])
-const {candidates,setCandidates}=useCandidates()
-onBeforeMount(() => {
-    setCandidates(candidateList)
-})
+ const {candidates}=defineProps(['candidates'])
+const modules =[FreeMode,Scrollbar,Mousewheel]
 
 
 </script>
 <style lang="css">
     .candidates{
         display: flex;
+        flex: 1;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
-        max-height: 80vh;
-        overflow-y: scroll;
-        gap: 2rem;
-        padding: 50px 0;
+        padding: 10px 20px;
     }
 </style>

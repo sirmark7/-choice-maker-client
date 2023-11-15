@@ -4,7 +4,7 @@
     <div class="dropdown">
       <select v-model="election" onchange="()=>handleInput(election)" >
 
-        <option disabled value="">Please select one</option>
+        <option selected disabled value="">Please select one</option>
         <option class="select-option" 
         v-for="(type,index) in electionTypes[`${electionType}`]" 
         :key="index" :value="type.value" 
@@ -14,30 +14,40 @@
      
       </select>
     </div>
-    <CandidateList/>
+    <CandidateList :candidates="candidates"/>
   </div>
 </template >
 
 <script setup>
 import CandidateList from '../components/homepage/CandidateList.vue';
 import NavigationBar from '../components/homepage/NavigationBar.vue';
+import { candidateList } from '../data/data';
+import {useCandidates} from '../stores/candidates'
+import { onBeforeMount } from 'vue';
 import {ref} from 'vue'
 
-const electionType =ref('general')
-const position =ref()
 
+const electionType =ref('general')
+const {getCandidates,setCandidates}=useCandidates()
+const candidates =ref()
+
+onBeforeMount(async()=>{
+await setCandidates(candidateList)
+candidates.value=getCandidates
+})
 const isActive =ref(true)
 const handleElectionType =()=>{
-
   console.log(electionType.value)
 
-  if(type === 'src'){
-    isActive.value = false
-  }else{isActive.value =true}
+//   if(type === 'src'){
+//     isActive.value = false
+//   }else{isActive.value =true}
   
-}
-const handleInput=(result)=>{
-console.log(result);
+// }
+
+// const handleInput=(result)=>{
+// console.log(result);
+// }
 }
 
 const electionTypes = {
@@ -64,10 +74,11 @@ const electionTypes = {
 <style lang="css">
 .home-page{
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   flex-direction: column;
   align-items: center;
-  max-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .dropdown{

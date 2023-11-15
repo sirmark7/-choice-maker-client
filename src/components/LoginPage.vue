@@ -8,33 +8,62 @@
   </form>
 </template>
 <script setup>
-import { ref ,onBeforeMount} from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-const auth = useAuthStore()
+// import { useUserStore } from '@/stores/user'
+import Swal from 'sweetalert2'
+const {setIsAuthenticated}=useAuthStore()
+// const {setUser}=useUserStore()
 const user = ref({})
 const router = useRouter()
 
 
-onBeforeMount(() => {
-  if(auth.isAuthenticated){
-    router.push('home')
-  }
-})
 const details = {
   folio_number: 12345,
   password: 'password'
 }
-const handleLogin = () => {
+const handleLogin = async() => {
   if (
     details.folio_number !== user.value.folio_number &&
     details.password !== user.value.password
   ) {
-    return alert('incorrect credentials')
+    return Swal.fire({
+            title: 'Incorrect credentials',
+            text:   `check and re-enter details`,
+            icon: 'warning',
+          
+        });
   }
-  auth.setIsAuthenticated(true)
-
+  setIsAuthenticated(true)
+  Swal.fire({
+            title: 'Login Successful',
+            text:   `Welcome `,
+            icon: 'success',
+          
+        });
   router.push('/home')
+  // const result = await login(user.value);
+      // if (result.success) {
+      //   setIsAuthenticated(true)
+      //   setUser(result.data.user)
+      //   Swal.fire({
+      //       title: 'Login successful',
+      //       text:   `Welcome ${result.user}`,
+      //       icon: 'success',
+          
+      //   });
+      //   router.push('/dashboard/')
+      // } else {
+      //   Swal.fire({
+      //       title: 'Login Failed',
+      //       text:   ``,
+      //       icon: 'warning',
+          
+      //   });
+      //   console.error('Login failed', result.message);
+      // }
 }
+
 </script>
 <style lang="" scope></style>

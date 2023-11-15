@@ -66,6 +66,17 @@ const router = createRouter({
     //   component: () => import('../views/AboutView.vue')
     // }
   ]
+
+ 
+})
+ router.beforeEach((to, from, next) => {
+  const {isAuthenticated}=useAuthStore()
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    // Redirect to the login page or another page
+    next('/login');
+  } else {
+    next();
+  }
 })
 
 export default router

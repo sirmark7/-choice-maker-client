@@ -16,16 +16,46 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
-const router = useRouter()
+// import {useAuthStore} from '../stores/auth'
+import Helpers from '../services/helpers'
+import Swal from 'sweetalert2'
+const router =useRouter()
+
 const user = ref({})
 const handleSignup = async () => {
-  if(user.value.password !== user.value.confirm_password){
-    return alert('password does not match')
-  }
+    const comparePassword =Helpers.compare(user.value.password,user.value.confirm_password)
+   if(!comparePassword){
+        return Swal.fire({
+            title: 'Password Mismatch',
+            text:   `password dose not match`,
+            icon: 'warning',
+          
+        });
+    }
   console.log(user.value)
  alert('signup successful')
-
   router.push('/auth/login')
+  
+//  const result = await signup(user.value)
+  // if (result.success) {
+       
+  //       Swal.fire({
+  //           title: 'Signup successful',
+  //           text:   `Login to Access Dashboad`,
+  //           icon: 'success',
+          
+  //       });
+  //        router.push('/auth/login')
+  //     } else {
+  //      return Swal.fire({
+  //           title: 'Registration Failed',
+  //           text:   ``,
+  //           icon: 'warning',
+          
+  //       })
+  //       console.error('signup failed', result.message);
+  //       }
 }
+
 </script>
 <style lang=""></style>

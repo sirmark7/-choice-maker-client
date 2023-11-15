@@ -1,14 +1,21 @@
-import { ref } from 'vue'
+
 import { defineStore } from 'pinia'
 
-export const useCandidates = defineStore('candidates', () => {
+export const useCandidates = defineStore('candidates', {
   // define store variable
-  const candidates = ref()
+  	state: () => ({
+		candidates: null,
+	}),
 
   // define a function to change the variable
-  function setCandidates(state) {
-    candidates.value = state
-  }
+  actions:
+  {
+	setCandidates(data){
+		this.candidates=data
+	},
+},
 
-  return { candidates, setCandidates }
+getters:{
+  getCandidates:(state) => state.candidates,
+}
 })
