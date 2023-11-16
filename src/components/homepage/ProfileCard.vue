@@ -5,15 +5,18 @@
     <img class="profile-img" :src="`/images/${profile?.img}`" :alt="profile?.name">
     <h1>{{$route.params.id}}</h1>
     <div class="profile-details">
-      <div>
-        <h3>Biography</h3>
-        <p>{{ profile?.text }}</p>
+      <span>
+        <h2>Biography</h2>
+        <p>{{ profile?.biography }}</p>
+      </span>
+      <span>
         <h3>Policies</h3>
         <ul class="policies">
           <li v-for="(policy,i) in profile?.policies" :key="i" >{{ policy }}</li>
         </ul>
+      </span>
       </div>
-    </div>
+ 
   </div>
 </div>
   </template>
@@ -33,11 +36,14 @@ profile.value=candidateList.find((candidate)=>candidate.name==route.params.id)
 
   
   </script>
-  <style lang="css" scope>
+  <style lang="css" scoped>
+  h1{
+    font-size: 20px;
+  }
   .container{
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: center;
   }
   .profile-page{
     max-width: 500px;
@@ -50,8 +56,12 @@ profile.value=candidateList.find((candidate)=>candidate.name==route.params.id)
     position: relative;
     gap: 12px;
   }
-h3{
+h2, h3{
   text-decoration: underline;
+  font-size: 18px;
+  width: 100%;
+  text-align: left;
+
 }
   .profile-page::after{
     position: absolute;
@@ -98,6 +108,10 @@ h3{
 .profile-details{
   position: relative;
   display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 2rem;
 }
 
 .policies{

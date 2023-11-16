@@ -27,6 +27,7 @@ const image ='/images/'+props.img
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    width: 100%;
 }
 
     .btns,.profile{
@@ -63,5 +64,11 @@ const image ='/images/'+props.img
         color: var(--primary-color);
         transition: all .5s ease-in-out;
     }
+    .btns{
+        gap: 10px;
+    }
+     @media screen and (min-width:700px) {
+        
+       }
 
 </style>

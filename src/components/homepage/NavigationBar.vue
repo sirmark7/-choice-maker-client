@@ -6,7 +6,7 @@
                 Choise Maker
                 </RouterLink>
 
-                <button class="log-out btn">
+                <button class="log-out btn" @click="handleLogout">
                     Log Out
                 </button>
            
@@ -18,8 +18,22 @@
     </header>
 </template>
 <script setup>
+import { useAuthStore } from '../../stores/auth';
+import {useRouter} from 'vue-router'
+import Swal from 'sweetalert2';
+const router =useRouter()
+const {logout}=useAuthStore()
 
 const {handleElectionType, isActive} =defineProps(['handleElectionType','isActive'])
+const handleLogout=async()=>{
+    await logout()
+    Swal.fire({
+            title: 'Log Out  Success full',
+            text:   `Good Bye`,
+            icon: 'success',
+        });
+    router.push('/auth/login')
+}
 
 </script>
 <style lang="css">
@@ -29,13 +43,10 @@ header{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
-    
-
 }
 nav{
-    max-width: 500px;
     display: flex;
+    margin-bottom: 1rem;
     align-items: center;
     width: 100%;
     justify-content: space-around;
@@ -44,6 +55,9 @@ nav{
     border-radius: 15px 15px 0px 0px;
     background: var(--primary-color);
     border-bottom: 2px solid var(--secondary-color);
+}
+nav>a{
+    color: var(--secondary-color);
 }
 .log-out{
     /* background: none;
@@ -64,9 +78,20 @@ nav{
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
+    background: var(--primary-color);
+    
 }
 .btn.active{
-    background: var(--primary-color);
-    color: var((--secondary-color));
+    background: var(--secondary-color);
+    color: var(--primary-color);
+   
 }
+
+@media screen and (min-width:700px) {
+  nav{
+    /* max-width: 1080px; */
+    justify-content: space-between;
+    padding: 1rem;
+}
+  }
 </style>

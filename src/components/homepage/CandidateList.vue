@@ -1,47 +1,70 @@
 <template >
-    <Swiper 
-    class='candidates'
-    :direction="'vertical'"
-    :slidesPerView="2.2"
-    :freeMode="true"
-    :scrollbar="true"
-    :mousewheel="true"
-    :spaceBetween="10"
-    :modules="modules"
-    >
-    <SwiperSlide
-    v-for="(candidate,index) in candidates" 
+  <div class="candidates">
+
+ 
+    <CandidateCard 
+    v-for="(candidate, index) in candidates"
     :key="index"
-    >
-        <CandidateCard 
-        :img="candidate.img"
-        :name="candidate.name"
-        :text="candidate.text"
-        />
-    </SwiperSlide>
-    </Swiper>
+    :img="candidate.img"
+    :name="candidate.name"
+    :text="candidate.text"
+    />
+  </div>
+ 
 </template>
 <script setup>
-import { SwiperSlide, Swiper } from 'swiper/vue';
-import {  FreeMode, Scrollbar, Mousewheel } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/mousewheel'
-import 'swiper/css/free-mode';
-import 'swiper/css/scrollbar';
 
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import CandidateCard from './CandidateCard.vue'
+  const windowWidth = ref(window.innerWidth);
+    // Update windowWidth when the component is mounted
+    onMounted(() => {
+      updateWindowWidth();
+      window.addEventListener('resize', updateWindowWidth);
+    });
+    // Remove the event listener when the component is unmounted
+    onBeforeUnmount(() => {
+      window.removeEventListener('resize', updateWindowWidth);
+    });
+    // Function to update windowWidth
+    const updateWindowWidth = () => {
+      windowWidth.value = window.innerWidth;
+    };
+
  const {candidates}=defineProps(['candidates'])
-const modules =[FreeMode,Scrollbar,Mousewheel]
+
 
 
 </script>
 <style lang="css">
     .candidates{
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      align-items: center;
+      gap: 2rem;
+       flex: 1;
         padding: 10px 20px;
+        align-content: center;
+        overflow-y: auto;
+        scroll-behavior: smooth;
     }
+    .slider{
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      align-items: center;
+    }
+    @media screen and (min-width:700px) {
+  nav{
+    max-width: 1080px;
+    justify-content: space-between;
+    padding: 1rem;
+}
+.candidates{
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+}
+
+  }
 </style>

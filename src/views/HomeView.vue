@@ -2,16 +2,14 @@
   <div class='home-page'>
    <NavigationBar :handleElectionType="handleElectionType" :isActive="isActive"/>
     <div class="dropdown">
-      <select v-model="election" onchange="()=>handleInput(election)" >
-
-        <option selected disabled value="">Please select one</option>
+      <label for="position">Select Position to see Candidates</label>
+      <select id="position" v-model="election" name="position" :onChange="handleInput" >
         <option class="select-option" 
         v-for="(type,index) in electionTypes[`${electionType}`]" 
         :key="index" :value="type.value" 
         >
         {{ type.name }}
       </option>
-     
       </select>
     </div>
     <CandidateList :candidates="candidates"/>
@@ -21,55 +19,42 @@
 <script setup>
 import CandidateList from '../components/homepage/CandidateList.vue';
 import NavigationBar from '../components/homepage/NavigationBar.vue';
-import { candidateList } from '../data/data';
-import {useCandidates} from '../stores/candidates'
-import { onBeforeMount } from 'vue';
-import {ref} from 'vue'
+import { candidateList,electionTypes } from '../data/data';
 
+import {ref,computed} from 'vue'
 
 const electionType =ref('general')
-const {getCandidates,setCandidates}=useCandidates()
+const election =ref()
 const candidates =ref()
-
-onBeforeMount(async()=>{
-await setCandidates(candidateList)
-candidates.value=getCandidates
-})
 const isActive =ref(true)
-const handleElectionType =()=>{
-  console.log(electionType.value)
+const handleElectionType =(type)=>{
 
-//   if(type === 'src'){
-//     isActive.value = false
-//   }else{isActive.value =true}
+  if(type === 'src'){
+    isActive.value = false
+    electionType.value='src'
+  }else{
+    isActive.value =true
+    electionType.value='general'
+    }
   
-// }
+}
+ const filteredCandidates=()=> {
+      // Filter candidates based on selected position
+      return election.value
+        ? candidateList.filter(candidate => candidate.position === election.value)
+        : candidateList;
+    }
 
-// const handleInput=(result)=>{
-// console.log(result);
-// }
+computed( candidates.value=filteredCandidates())
+
+
+
+const handleInput=async()=>{
+  console.log();
+ candidates.value=filteredCandidates()
 }
 
-const electionTypes = {
-  general:[
-    {name:'Boys Prefect',value:'boys_prefect'},
-    {name:'Girls Prefect',value:'girls_prefect'},
-    {name:'Sports Prefect',value:'sports_prefect'},
-    {name:'Library Prefect',value:'library_prefect'},
-    {name:'Environmental Prefect',value:'environmental_prefect'},  
-    {name:'Dinning Hall Prefect',value:'dinning_Hall_prefect'},
-    {name:'Entertainment Prefect',value:'entertainment_prefect'},
-    {name:'Disciplinary Prefect',value:'disciplinary_prefect'},
-  ],
 
-  src:[
-    {name:'President', value:'President'},
-    {name:'General Secretary',value:'General_secretary'},
-    {name:'Financial Secretary',value:'Financial_secretary'},
-    {name:'Organising Secretary',value:'Organising_secretary'},
-    {name:'Women Commissioner',value:'Women_Commissioner'},
-  ]
-}
 </script>
 <style lang="css">
 .home-page{
@@ -78,14 +63,15 @@ const electionTypes = {
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  overflow: hidden;
 }
 
 .dropdown{
   width: 100%;
   max-width: 500px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 20px ;
 }
 .dropdown select{

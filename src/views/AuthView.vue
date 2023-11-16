@@ -6,8 +6,8 @@
 </template>
 <script></script>
 
-<style lang="css">
-h2{
+<style lang="css" scoped>
+.auth h2{
   position: absolute;
     top: 20%;
     left:50%;
