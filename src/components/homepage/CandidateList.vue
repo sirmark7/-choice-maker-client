@@ -5,9 +5,7 @@
     <CandidateCard 
     v-for="(candidate, index) in candidates"
     :key="index"
-    :img="candidate.img"
-    :name="candidate.name"
-    :text="candidate.text"
+    :candidate="candidate"
     />
   </div>
  

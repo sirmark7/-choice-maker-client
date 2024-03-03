@@ -13,14 +13,19 @@
       </select>
     </div>
     <CandidateList :candidates="candidates"/>
+    <!-- <ModalCard>
+      hello
+    </ModalCard> -->
+    
   </div>
 </template >
 
 <script setup>
+// import ModalCard from '../components/ModalCard.vue';
 import CandidateList from '../components/homepage/CandidateList.vue';
 import NavigationBar from '../components/homepage/NavigationBar.vue';
 import { candidateList,electionTypes } from '../data/data';
-
+// import Swal from 'sweetalert2'
 import {ref,computed} from 'vue'
 
 const electionType =ref('general')
@@ -84,7 +89,12 @@ const handleInput=async()=>{
   padding: 5px;
   height: 10px;
   border-radius:0px ;
+  cursor: pointer;
 }
 
-
+label{
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
 </style>

@@ -1,21 +1,60 @@
 <template >
     <div class='card-container'>
         <div class="profile">
-            <img :src="image" :alt="props.name">
+            <img :src="image" :alt="candidate.name">
+            <p class="">Aspiring {{ position }}</p>
             <div class="profile-text">
-                <h3>{{ props.name }}</h3>
-                <p>{{ props.text }}</p>
+                <h3>{{ candidate.name }}</h3>
+                <p> {{ candidate.motto }}</p>
             </div>
         </div>
         <div class="btns">
-            <button class=' btn btn-info' @click="$router.push(`/candidate/${props.name}`)" >View Profile</button>
-            <button class = ' btn btn-action' >Vote</button>
+            <!-- <button class=' btn btn-info' @click="$router.push(`/candidate/${candidate.name}`)" >View Profile</button> -->
+            <button class=' btn btn-info' @click="handleShowProfile" >View Profile</button>
+            <button class = ' btn btn-action' @click="handleVote(candidate.name)" >Vote</button>
         </div>
+      
     </div>
 </template>
 <script setup>
-const props =defineProps(['name','position','text','img'])
-const image ='/images/'+props.img
+import Swal from 'sweetalert2'
+const {candidate} =defineProps(['candidate'])
+const position=candidate.position.replace(/_/g," ")
+const image ='/images/'+candidate.img
+
+const handleVote=(aspirant)=>{
+    Swal.fire({
+    title: "Confirm Vote!",
+    text:`Are you sure you want to vote for ${aspirant} ?`,
+    type: "question",
+    showCancelButton: true,
+    confirmButtonColor: '#008000',
+    cancelButtonColor: 'red',
+    cancelButtonText: "No, cancel it!",
+    confirmButtonText: 'Yes, I am sure!',
+    closeOnConfirm: false,
+    closeOnCancel: false
+    }).then( (result)=>{
+    if(result.isConfirmed){
+        Swal.fire("Vote Confirmed",`Vote Counted`, "sucess",)
+    }
+    }
+    )
+}
+
+const handleShowProfile=()=>{
+    Swal.getHtmlContainer({
+         html:"<ProfileCard/>",
+    })
+    // Swal.fire({
+    // title: "Profile and Policies",
+    // html:"<ProfileCard/>",
+    // type: "info",
+    // confirmButtonColor: '#008000',
+    // confirmButtonText: 'close',
+    // }, Swal.getHtmlContainer()
+    // )
+}
 </script>
 <style lang="css">
 .card-container{
@@ -48,6 +87,9 @@ const image ='/images/'+props.img
         border-radius: 50%;
     }
 
+    .profile >p {
+    text-transform: capitalize;
+    }
     .btns button{
         width:100px ;
         background: var(--primary-color);

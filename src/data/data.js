@@ -2,6 +2,8 @@ export const candidateList=[
     {name:'Mark',
     motto:'show down',
     position:'president',
+    class:'3C',
+    house:'Hayfron',
     img:'avatar-m.png',
     policies:[' Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum cumque ipsa recusandae atque eaque consectetur reprehenderit maxime voluptatum! Delectus fuga in aperiam nesciunt dolor non doloribus adipisci ipsam, possimus a.','comedey policy',' Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum cumque ipsa recusandae atque eaque consectetur reprehenderit maxime voluptatum! Delectus fuga in aperiam nesciunt dolor non doloribus adipisci ipsam, possimus a.' ,'npp policy'],
     biography:'orem ipsum dolor sit amet consectetur adipisicing elit. Commodi, nam? Natus soluta quaerat suscipit'
@@ -9,6 +11,8 @@ export const candidateList=[
     {name:'Joyce',
     motto:'show down',
     position:'girls_prefect',
+    class:'3C',
+    house:'Hayfron',
     img:'avatar-f.jpg',
     policies:[' Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum cumque ipsa recusandae atque eaque consectetur reprehenderit maxime voluptatum! Delectus fuga in aperiam nesciunt dolor non doloribus adipisci ipsam, possimus a.','comedey policy',' Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum cumque ipsa recusandae atque eaque consectetur reprehenderit maxime voluptatum! Delectus fuga in aperiam nesciunt dolor non doloribus adipisci ipsam, possimus a.' ,'npp policy'],
     biography:'orem ipsum dolor sit amet consectetur adipisicing elit. Commodi, nam? Natus soluta quaerat suscipit'
@@ -16,6 +20,8 @@ export const candidateList=[
     {name:'Ato',
     motto:'show down',
     position:'boys_prefect',
+    class:'3C',
+    house:'Hayfron',
     img:'avatar-m.png',
     policies:[' Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum cumque ipsa recusandae atque eaque consectetur reprehenderit maxime voluptatum! Delectus fuga in aperiam nesciunt dolor non doloribus adipisci ipsam, possimus a.','comedey policy',' Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum cumque ipsa recusandae atque eaque consectetur reprehenderit maxime voluptatum! Delectus fuga in aperiam nesciunt dolor non doloribus adipisci ipsam, possimus a.' ,'npp policy'],
     biography:'orem ipsum dolor sit amet consectetur adipisicing elit. Commodi, nam? Natus soluta quaerat suscipit'
@@ -23,6 +29,8 @@ export const candidateList=[
     {name:'Collins',
     motto:'show down',
     position:'president',
+    class:'3C',
+    house:'Hayfron',
     img:'avatar-m.png',
     policies:[' Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum cumque ipsa recusandae atque eaque consectetur reprehenderit maxime voluptatum! Delectus fuga in aperiam nesciunt dolor non doloribus adipisci ipsam, possimus a.','comedey policy',' Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum cumque ipsa recusandae atque eaque consectetur reprehenderit maxime voluptatum! Delectus fuga in aperiam nesciunt dolor non doloribus adipisci ipsam, possimus a.' ,'npp policy'],
     biography:'orem ipsum dolor sit amet consectetur adipisicing elit. Commodi, nam? Natus soluta quaerat suscipit'

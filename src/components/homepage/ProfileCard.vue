@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <!-- <div class="container">
     <div class="profile-page">
       <button @click="$router.back()" class="candidate-nav"><ReturnDownBack class="back-icon"/>Back</button>
     <img class="profile-img" :src="`/images/${profile?.img}`" :alt="profile?.name">
@@ -18,6 +18,26 @@
       </div>
  
   </div>
+</div> -->
+ <div class="container">
+    <div class="profile-page">
+      <button @click="()=>{}" class="candidate-nav"><Close class="back-icon"/>Close</button>
+    <img class="profile-img" :src="`/images/${candidate.img}`" :alt="candidate.name">
+    <h1>{{candidate.name}}</h1>
+    <div class="profile-details">
+      <span>
+        <h2>Biography</h2>
+        <p>{{ candidate.biography }}</p>
+      </span>
+      <span>
+        <h3>Policies</h3>
+        <ul class="policies">
+          <li v-for="(policy,i) in candidate.policies" :key="i" >{{ policy }}</li>
+        </ul>
+      </span>
+      </div>
+ 
+  </div>
 </div>
   </template>
   <script setup>
@@ -25,15 +45,15 @@
   import {ref,onMounted } from 'vue';
   import { candidateList } from '../../data/data';
   import { useRoute } from 'vue-router';
-  import { ReturnDownBack } from '@vicons/ionicons5'
+  import { Close } from '@vicons/ionicons5'
   const profile=ref()
   const route =useRoute()
 
   
-  onMounted(()=>{
-profile.value=candidateList.find((candidate)=>candidate.name==route.params.id)
-  })
-
+//   onMounted(()=>{
+// profile.value=candidateList.find((candidate)=>candidate.name==route.params.id)
+//   })
+const {candidate} =defineProps(['candidate'])
   
   </script>
   <style lang="css" scoped>

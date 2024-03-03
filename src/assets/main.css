@@ -2,7 +2,7 @@
 
 
 :root{
-  --primary-color:green;
+  --primary-color:#008000;
   --primary-light:rgba(0, 128, 0, 0.696);
   --secondary-color:white;
 }
