@@ -12,8 +12,8 @@
            
         </nav>
            <div class="election-nav">
-             <button class='btn' title="switch General Elections" :class='{active: isActive}' @click="()=>handleElectionType('general')" >General Elections</button>
-            <button class='btn' title=" switch SRC Elections" :class='{active: !isActive}' @click="()=>handleElectionType('src')">SRC Elections</button>
+             <h1 class='btn' title="position" :class='{active: isActive}' >{{ isActive.position }}</h1>
+            <button class='btn' title=" switch SRC Elections" :class='{active: !isActive}' @click="handleElectionType">Next</button>
            </div>
     </header>
 </template>
@@ -24,7 +24,7 @@ import Swal from 'sweetalert2';
 const router =useRouter()
 const {logout}=useAuthStore()
 
-const {handleElectionType, isActive} =defineProps(['handleElectionType','isActive'])
+const {handleElectionType, isActive,} =defineProps(['handleElectionType','isActive'])
 const handleLogout=async()=>{
     await logout()
     Swal.fire({
@@ -34,7 +34,7 @@ const handleLogout=async()=>{
         });
     router.push('/auth/login')
 }
-
+console.log(isActive);
 </script>
 <style lang="css">
 header{
@@ -43,6 +43,9 @@ header{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    top: 10px;
+    /* background: #000; */
 }
 nav{
     display: flex;

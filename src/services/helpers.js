@@ -5,9 +5,6 @@ export default class {
         }
         else return true
     }
-    static toggleModal(state){
-        return !state?.value
-    }
 }
 
 

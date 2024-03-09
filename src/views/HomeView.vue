@@ -2,15 +2,7 @@
   <div class='home-page'>
    <NavigationBar :handleElectionType="handleElectionType" :isActive="isActive"/>
     <div class="dropdown">
-      <label for="position">Select Position to see Candidates</label>
-      <select id="position" v-model="election" name="position" :onChange="handleInput" >
-        <option class="select-option" 
-        v-for="(type,index) in electionTypes[`${electionType}`]" 
-        :key="index" :value="type.value" 
-        >
-        {{ type.name }}
-      </option>
-      </select>
+      <label for="position">Select Candidate for {{ }}</label>
     </div>
     <CandidateList :candidates="candidates" :toggleModal="handleShowModal"/> 
   </div>
@@ -21,51 +13,62 @@
 import ModalCard from '../components/ModalCard.vue';
 import CandidateList from '../components/homepage/CandidateList.vue';
 import NavigationBar from '../components/homepage/NavigationBar.vue';
-import { candidateList,electionTypes } from '../data/data';
+import { candidateList} from '../data/data';
 
 // import Swal from 'sweetalert2'
-import {ref,computed} from 'vue'
-
-const electionType =ref('general')
-const election =ref()
+import {ref,onMounted} from 'vue'
+import Swal from 'sweetalert2'
+const electionTypes =ref()
+const election =ref(0)
 const candidates =ref()
-const isActive =ref(true)
+const isActive =ref({position:'',state:true})
 const showModal=ref(false)
 const candidateProfile=ref({})
-const handleElectionType =(type)=>{
+const groupedCandidates=ref()
 
-  if(type === 'src'){
-    isActive.value = false
-    electionType.value='src'
-  }else{
-    isActive.value =true
-    electionType.value='general'
+onMounted(()=>{
+
+groupedCandidates.value = candidateList.reduce((result, candidate) => {
+    // Check if the position key exists in the result object
+    if (!result[candidate.position]) {
+        // If it doesn't, create a new array for that position
+        result[candidate.position] = [];
     }
-  
-}
+    // Push the candidate into the array corresponding to its position
+    result[candidate.position].push(candidate);
+    electionTypes.value = Object.keys(result)
+    return result;
+}, {});
+  console.log(Object.keys(groupedCandidates.value).length);
+  console.log(electionTypes.value);
+  candidates.value =groupedCandidates.value[electionTypes.value[election.value]]
+  isActive.value['position'] =electionTypes.value[election.value]
+
+})
+
  const filteredCandidates=()=> {
       // Filter candidates based on selected position
+      console.log(electionTypes.value[election.value]);
       return election.value
-        ? candidateList.filter(candidate => candidate.position === election.value)
+        ? candidateList.filter(candidate => candidate.position === electionTypes.value[election.value])
         : candidateList;
     }
 
-computed( candidates.value=filteredCandidates())
-
-
-
-const handleInput=async()=>{
-  console.log();
- candidates.value=filteredCandidates()
+const handleElectionType =()=>{
+  const  listLength = Object.keys(groupedCandidates.value).length
+  if (election.value==(listLength-1)){
+    // isActive.value['state']=false
+    Swal.fire("No More Candidated",`Voting completed`, "info")
+    return;
+}
+++election.value
+candidates.value = filteredCandidates()  
 }
 
+
 const handleShowModal=(candidate)=>{
-  console.log(candidate);
-  console.log(showModal.value);
   candidateProfile.value=candidate
   showModal.value=!showModal.value
-
-
 }
 
 </script>

@@ -11,7 +11,7 @@
         <div class="btns">
             <!-- <button class=' btn btn-info' @click="$router.push(`/candidate/${candidate.name}`)" >View Profile</button> -->
             <button class=' btn btn-info' @click="handleShowProfile(candidate)" >View Profile</button>
-            <button class = ' btn btn-action' @click="handleVote(candidate.name)" >Vote</button>
+            <button class = ' btn btn-action' @click="handleVote(candidate)" >Vote</button>
         </div>
       
     </div>
@@ -25,18 +25,18 @@ const image ='/images/'+candidate.img
 const handleVote=(aspirant)=>{
     Swal.fire({
     title: "Confirm Vote!",
-    text:`Are you sure you want to vote for ${aspirant} ?`,
-    type: "question",
+    text:`Are you sure you want to vote for ${aspirant.name} ?`,
     showCancelButton: true,
     confirmButtonColor: '#008000',
     cancelButtonColor: 'red',
     cancelButtonText: "No, cancel it!",
-    confirmButtonText: 'Yes, I am sure!',
-    closeOnConfirm: false,
-    closeOnCancel: false
+    confirmButtonText: 'Yes, I am sure!'
     }).then( (result)=>{
     if(result.isConfirmed){
-        Swal.fire("Vote Confirmed",`Vote Counted`, "sucess",)
+        aspirant['voted']=true
+        console.log(aspirant);
+        localStorage.setItem(aspirant.position,JSON.stringify(aspirant))
+        Swal.fire("Vote Confirmed",`Vote Counted`, "success",)
     }
     }
     )
@@ -44,18 +44,8 @@ const handleVote=(aspirant)=>{
 
 const handleShowProfile=(candidate)=>{
     toggleModal(candidate)
-    // Swal.getHtmlContainer({
-    //      html:"<ProfileCard/>",
-    // })
-    // Swal.fire({
-    // title: "Profile and Policies",
-    // html:"<ProfileCard/>",
-    // type: "info",
-    // confirmButtonColor: '#008000',
-    // confirmButtonText: 'close',
-    // }, Swal.getHtmlContainer()
-    // )
 }
+
 </script>
 <style lang="css">
 .card-container{

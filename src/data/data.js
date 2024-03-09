@@ -1,7 +1,7 @@
 export const candidateList=[
     {name:'Mark',
     motto:'show down',
-    position:'president',
+    position:'src_president',
     class:'3C',
     house:'Hayfron',
     img:'avatar-m.png',
@@ -28,7 +28,7 @@ export const candidateList=[
 },
     {name:'Collins',
     motto:'show down',
-    position:'president',
+    position:'src_president',
     class:'3C',
     house:'Hayfron',
     img:'avatar-m.png',
@@ -37,8 +37,7 @@ export const candidateList=[
 },
 ]
 
-export const electionTypes = {
-  general:[
+export const electionTypes = [
     {name:'Boys Prefect',value:'boys_prefect'},
     {name:'Girls Prefect',value:'girls_prefect'},
     {name:'Sports Prefect',value:'sports_prefect'},
@@ -47,13 +46,9 @@ export const electionTypes = {
     {name:'Dinning Hall Prefect',value:'dinning_Hall_prefect'},
     {name:'Entertainment Prefect',value:'entertainment_prefect'},
     {name:'Disciplinary Prefect',value:'disciplinary_prefect'},
-  ],
-
-  src:[
-    {name:'President', value:'president'},
-    {name:'General Secretary',value:'general_secretary'},
-    {name:'Financial Secretary',value:'financial_secretary'},
-    {name:'Organising Secretary',value:'organising_secretary'},
-    {name:'Women Commissioner',value:'women_commissioner'},
+    {name:'President', value:'src_president'},
+    {name:'General Secretary',value:'src_general_secretary'},
+    {name:'Financial Secretary',value:'src_financial_secretary'},
+    {name:'Organising Secretary',value:'src_organising_secretary'},
+    {name:'Women Commissioner',value:'src_women_commissioner'},
   ]
-}
