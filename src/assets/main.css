@@ -18,8 +18,8 @@
   body {
     display: flex;
     place-items: center;
-    max-height: 100vh;
-     overflow: hidden;
+    /* max-height: 100vh; */
+     overflow-x: hidden;
   }
 }
 .main-container {

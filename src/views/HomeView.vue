@@ -12,19 +12,17 @@
       </option>
       </select>
     </div>
-    <CandidateList :candidates="candidates"/>
-    <!-- <ModalCard>
-      hello
-    </ModalCard> -->
-    
+    <CandidateList :candidates="candidates" :toggleModal="handleShowModal"/> 
   </div>
+  <ModalCard v-show="showModal" heading="Candidate Profile" :candidate="candidateProfile" :toggleModal="handleShowModal"/>
 </template >
 
 <script setup>
-// import ModalCard from '../components/ModalCard.vue';
+import ModalCard from '../components/ModalCard.vue';
 import CandidateList from '../components/homepage/CandidateList.vue';
 import NavigationBar from '../components/homepage/NavigationBar.vue';
 import { candidateList,electionTypes } from '../data/data';
+
 // import Swal from 'sweetalert2'
 import {ref,computed} from 'vue'
 
@@ -32,6 +30,8 @@ const electionType =ref('general')
 const election =ref()
 const candidates =ref()
 const isActive =ref(true)
+const showModal=ref(false)
+const candidateProfile=ref({})
 const handleElectionType =(type)=>{
 
   if(type === 'src'){
@@ -59,6 +59,14 @@ const handleInput=async()=>{
  candidates.value=filteredCandidates()
 }
 
+const handleShowModal=(candidate)=>{
+  console.log(candidate);
+  console.log(showModal.value);
+  candidateProfile.value=candidate
+  showModal.value=!showModal.value
+
+
+}
 
 </script>
 <style lang="css">
@@ -67,7 +75,7 @@ const handleInput=async()=>{
   justify-content: start;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .dropdown{

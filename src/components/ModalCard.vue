@@ -1,43 +1,47 @@
 <template>
-    <div class="modal-container">
+    <div class="modal-container" >
 
         <div class="modal">
             <div class="nav">
-                <h1>{{ heading }}</h1>
-                <Close class="close-icon"/>
+                <h2>{{ heading }}</h2>
+                <Close @click="toggleModal({})" class="close-icon"/>
             </div>
             <div class="modal-content">
-                <slot></slot>
+               <ProfileCard :candidate="candidate" />
             </div>
         </div>
-
-
     </div>
 </template>
 
 <script setup>
  import { Close } from '@vicons/ionicons5'
+ import ProfileCard from '../components/homepage/ProfileCard.vue';
+ const {heading,candidate,toggleModal} = defineProps(['heading','candidate','toggleModal'])
 </script>
 
 <style lang="css" scoped>
+ 
 .modal-container{
      position: absolute;
-     height: 100vh;
-     width: 100vw;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height:100dvh;
+     width: 100vw;   
+     z-index: 99;
+     top: 0;
+    left: 0;
+    background-color: rgba(1, 1, 1, 0.695);
 }
+
 .modal{
+    /* position: fixed; */
     width: 50%;
     height: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
     background: var(--primary-color);
     overflow-y: scroll;
     scroll-behavior: smooth;
+    
 }
 
 .nav{
@@ -46,21 +50,14 @@
     align-items: center;
     padding: 10px;
     border-bottom: 2px solid var(--secondary-color);
-    /* background: #000; */
-    width: 100%;
-    height: 40px;
-}
+    width: 100%; 
+    /* height: 40px; */
+    font-size: 15px;
+ } 
 
-.modal-container::after{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    content: "";
-    background-color: rgba(1, 1, 1, 0.695);
-}
+ 
 .close-icon{
-    height: 100%;
-}
+    height: 40px;
+    cursor: pointer;
+}  
 </style>

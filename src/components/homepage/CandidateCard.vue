@@ -10,7 +10,7 @@
         </div>
         <div class="btns">
             <!-- <button class=' btn btn-info' @click="$router.push(`/candidate/${candidate.name}`)" >View Profile</button> -->
-            <button class=' btn btn-info' @click="handleShowProfile" >View Profile</button>
+            <button class=' btn btn-info' @click="handleShowProfile(candidate)" >View Profile</button>
             <button class = ' btn btn-action' @click="handleVote(candidate.name)" >Vote</button>
         </div>
       
@@ -18,7 +18,7 @@
 </template>
 <script setup>
 import Swal from 'sweetalert2'
-const {candidate} =defineProps(['candidate'])
+const {candidate,toggleModal} =defineProps(['candidate','toggleModal'])
 const position=candidate.position.replace(/_/g," ")
 const image ='/images/'+candidate.img
 
@@ -42,10 +42,11 @@ const handleVote=(aspirant)=>{
     )
 }
 
-const handleShowProfile=()=>{
-    Swal.getHtmlContainer({
-         html:"<ProfileCard/>",
-    })
+const handleShowProfile=(candidate)=>{
+    toggleModal(candidate)
+    // Swal.getHtmlContainer({
+    //      html:"<ProfileCard/>",
+    // })
     // Swal.fire({
     // title: "Profile and Policies",
     // html:"<ProfileCard/>",

@@ -5,7 +5,9 @@
     <CandidateCard 
     v-for="(candidate, index) in candidates"
     :key="index"
+    :index="index"
     :candidate="candidate"
+    :toggleModal="toggleModal"
     />
   </div>
  
@@ -29,7 +31,7 @@ import CandidateCard from './CandidateCard.vue'
       windowWidth.value = window.innerWidth;
     };
 
- const {candidates}=defineProps(['candidates'])
+ const {candidates,toggleModal}=defineProps(['candidates','toggleModal'])
 
 
 

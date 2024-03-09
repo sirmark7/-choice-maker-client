@@ -1,38 +1,17 @@
 <template>
-  <!-- <div class="container">
-    <div class="profile-page">
-      <button @click="$router.back()" class="candidate-nav"><ReturnDownBack class="back-icon"/>Back</button>
-    <img class="profile-img" :src="`/images/${profile?.img}`" :alt="profile?.name">
-    <h1>{{$route.params.id}}</h1>
-    <div class="profile-details">
-      <span>
-        <h2>Biography</h2>
-        <p>{{ profile?.biography }}</p>
-      </span>
-      <span>
-        <h3>Policies</h3>
-        <ul class="policies">
-          <li v-for="(policy,i) in profile?.policies" :key="i" >{{ policy }}</li>
-        </ul>
-      </span>
-      </div>
- 
-  </div>
-</div> -->
  <div class="container">
     <div class="profile-page">
-      <button @click="()=>{}" class="candidate-nav"><Close class="back-icon"/>Close</button>
-    <img class="profile-img" :src="`/images/${candidate.img}`" :alt="candidate.name">
-    <h1>{{candidate.name}}</h1>
+    <img class="profile-img" :src="`/images/${candidate?.img}`" :alt="candidate?.name">
+    <h1>{{candidate?.name}}</h1>
     <div class="profile-details">
       <span>
         <h2>Biography</h2>
-        <p>{{ candidate.biography }}</p>
+        <p>{{ candidate?.biography }}</p>
       </span>
       <span>
         <h3>Policies</h3>
         <ul class="policies">
-          <li v-for="(policy,i) in candidate.policies" :key="i" >{{ policy }}</li>
+          <li v-for="(policy,i) in candidate?.policies" :key="i" >{{ policy }}</li>
         </ul>
       </span>
       </div>
@@ -41,15 +20,6 @@
 </div>
   </template>
   <script setup>
-
-  import {ref,onMounted } from 'vue';
-  import { candidateList } from '../../data/data';
-  import { useRoute } from 'vue-router';
-  import { Close } from '@vicons/ionicons5'
-  const profile=ref()
-  const route =useRoute()
-
-  
 //   onMounted(()=>{
 // profile.value=candidateList.find((candidate)=>candidate.name==route.params.id)
 //   })
@@ -67,7 +37,7 @@ const {candidate} =defineProps(['candidate'])
   }
   .profile-page{
     max-width: 500px;
-    height: 100vh;
+    height: fit-content;
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -90,7 +60,7 @@ h2, h3{
     border-bottom-left-radius:30% ;
     border-bottom-right-radius: 30%;
     content: '';
-    height: 20vh;
+    height: 10vh;
     width: 100%;
     background: #22a148;
   }
@@ -135,7 +105,6 @@ h2, h3{
 }
 
 .policies{
-  overflow-y: scroll;
   display: flex;
   justify-content: flex-start;
   align-items: start;
