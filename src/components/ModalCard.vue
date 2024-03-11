@@ -22,7 +22,7 @@
 <style lang="css" scoped>
  
 .modal-container{
-     position: absolute;
+     position: fixed;
      display: flex;
      justify-content: center;
      align-items: center;
@@ -35,9 +35,9 @@
 }
 
 .modal{
-    /* position: fixed; */
+    position: relative;
     width: 50%;
-    height: 50%;
+    height:80vh ;
     background: var(--primary-color);
     overflow-y: scroll;
     scroll-behavior: smooth;
@@ -46,6 +46,7 @@
 
 .nav{
     display: flex;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     padding: 10px;

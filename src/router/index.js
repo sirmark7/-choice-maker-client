@@ -7,6 +7,7 @@ import SignupPage from '../components/SignupPage.vue'
 import AdminAuth from '../components/AdminAuth.vue'
 import ProfileCard from '../components/homepage/ProfileCard.vue'
 import { useAuthStore } from '../stores/auth'
+import AboutView from '../views/AboutView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -47,6 +48,18 @@ const router = createRouter({
         else next()
       },
       component: HomeView
+    },
+    {
+      path: '/about',
+      name: 'About',
+      beforeEnter: (to, from, next) => {
+        const auth = useAuthStore()
+        const isAuthenticated = auth.isAuthenticated
+
+        if (to.name == 'Home' && !isAuthenticated) next({ name: 'Login' })
+        else next()
+      },
+      component: AboutView
     },
 
     {

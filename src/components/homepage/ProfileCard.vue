@@ -34,9 +34,11 @@ const {candidate} =defineProps(['candidate'])
     display: flex;
     justify-content: center;
     align-items: center;
+
   }
   .profile-page{
     max-width: 500px;
+    /* min-height: 500px; */
     height: fit-content;
     padding: 40px;
     display: flex;
@@ -45,6 +47,7 @@ const {candidate} =defineProps(['candidate'])
     align-items: center;
     position: relative;
     gap: 12px;
+    color: var(--secondary-color);
   }
 h2, h3{
   text-decoration: underline;

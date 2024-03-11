@@ -3,12 +3,15 @@
 
  
     <CandidateCard 
+    :mode="mode"
     v-for="(candidate, index) in candidates"
     :key="index"
     :index="index"
     :candidate="candidate"
-    :toggleModal="toggleModal"
+    :toggleModal="toggleModal"   
     />
+   
+
   </div>
  
 </template>
@@ -31,12 +34,12 @@ import CandidateCard from './CandidateCard.vue'
       windowWidth.value = window.innerWidth;
     };
 
- const {candidates,toggleModal}=defineProps(['candidates','toggleModal'])
+ const {candidates,toggleModal,mode}=defineProps(['candidates','toggleModal','mode'])
 
 
 
 </script>
-<style lang="css">
+<style lang="css" scoped>
     .candidates{
       display: grid;
       grid-template-columns: 1fr;
@@ -48,6 +51,7 @@ import CandidateCard from './CandidateCard.vue'
         align-content: center;
         overflow-y: auto;
         scroll-behavior: smooth;
+        margin-top: 60vh;
     }
     .slider{
       display: grid;

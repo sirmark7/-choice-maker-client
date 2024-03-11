@@ -2,7 +2,7 @@
     <div class='card-container'>
         <div class="profile">
             <img :src="image" :alt="candidate.name">
-            <p class="">Aspiring {{ position }}</p>
+            <p class=""> <span style="font-weight: bold;">Aspiring</span> <br> {{candidate.position.replace(/_/g," ") }}</p>
             <div class="profile-text">
                 <h3>{{ candidate.name }}</h3>
                 <p> {{ candidate.motto }}</p>
@@ -11,15 +11,15 @@
         <div class="btns">
             <!-- <button class=' btn btn-info' @click="$router.push(`/candidate/${candidate.name}`)" >View Profile</button> -->
             <button class=' btn btn-info' @click="handleShowProfile(candidate)" >View Profile</button>
-            <button class = ' btn btn-action' @click="handleVote(candidate)" >Vote</button>
+            <button v-if="mode" class = ' btn btn-action' @click="handleVote(candidate)" >Vote</button>
         </div>
       
     </div>
 </template>
 <script setup>
 import Swal from 'sweetalert2'
-const {candidate,toggleModal} =defineProps(['candidate','toggleModal'])
-const position=candidate.position.replace(/_/g," ")
+import Helpers from '../../services/helpers'
+const {candidate,toggleModal,mode} =defineProps(['candidate','toggleModal','mode'])
 const image ='/images/'+candidate.img
 
 const handleVote=(aspirant)=>{
@@ -35,7 +35,8 @@ const handleVote=(aspirant)=>{
     if(result.isConfirmed){
         aspirant['voted']=true
         console.log(aspirant);
-        localStorage.setItem(aspirant.position,JSON.stringify(aspirant))
+
+        Helpers.storeData(aspirant)
         Swal.fire("Vote Confirmed",`Vote Counted`, "success",)
     }
     }
@@ -47,7 +48,7 @@ const handleShowProfile=(candidate)=>{
 }
 
 </script>
-<style lang="css">
+<style lang="css" scoped>
 .card-container{
     background-color: var(--primary-color);
     color: var(--secondary-color);

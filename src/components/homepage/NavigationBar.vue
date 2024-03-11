@@ -11,20 +11,24 @@
                 </button>
            
         </nav>
-           <div class="election-nav">
-             <h1 class='btn' title="position" :class='{active: isActive}' >{{ isActive.position }}</h1>
-            <button class='btn' title=" switch SRC Elections" :class='{active: !isActive}' @click="handleElectionType">Next</button>
+           <div v-if="show" class="election-nav" >
+             <h1 class='btn active' title="position" >{{ isActive?.position.replace(/_/g,' ') }}</h1>
+            <button class='btn' title=" switch SRC Elections"  @click="handleElectionType">Next</button>
            </div>
+           <label v-if="show" >Select Candidate for <span>{{isActive?.position.replace(/_/g,' ') }}</span></label>
     </header>
 </template>
 <script setup>
+
 import { useAuthStore } from '../../stores/auth';
 import {useRouter} from 'vue-router'
 import Swal from 'sweetalert2';
 const router =useRouter()
 const {logout}=useAuthStore()
 
-const {handleElectionType, isActive,} =defineProps(['handleElectionType','isActive'])
+const {handleElectionType, isActive,show} =defineProps(['handleElectionType','isActive','show'])
+
+
 const handleLogout=async()=>{
     await logout()
     Swal.fire({
@@ -36,20 +40,21 @@ const handleLogout=async()=>{
 }
 console.log(isActive);
 </script>
-<style lang="css">
+<style lang="css" scoped>
 header{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     position: fixed;
-    top: 10px;
-    /* background: #000; */
+    top: 0px; 
+    margin-bottom: 2rem;
+    background:var(--secondary-color);
+    gap: 10px;
 }
 nav{
     display: flex;
-    margin-bottom: 1rem;
     align-items: center;
     width: 100%;
     justify-content: space-around;
@@ -62,9 +67,8 @@ nav{
 nav>a{
     color: var(--secondary-color);
 }
-.log-out{
-    /* background: none;
-    border: none; */
+h1{
+   font-size: 1.5rem;
 } 
 .election-nav{
     max-width: 500px;
@@ -72,7 +76,6 @@ nav>a{
     align-items: center;
     width: 100%;
     justify-content: space-around;
-    gap: 50px;
     padding: 10px;
     background: var(--primary-color);
 }
@@ -80,6 +83,7 @@ nav>a{
 .btn{
     padding: 5px;
     border-radius: 5px;
+    font-size: 1.5rem;
     cursor: pointer;
     background: var(--primary-color);
     
@@ -87,7 +91,22 @@ nav>a{
 .btn.active{
     background: var(--secondary-color);
     color: var(--primary-color);
+    text-transform: capitalize;
    
+}
+label{
+  
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-transform: capitalize;
+  
+}
+
+label span{
+  background-color: var(--primary-light);
+  color: var(--secondary-color);
+  padding:5px;
 }
 
 @media screen and (min-width:700px) {

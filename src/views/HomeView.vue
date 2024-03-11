@@ -1,10 +1,8 @@
 <template>
   <div class='home-page'>
-   <NavigationBar :handleElectionType="handleElectionType" :isActive="isActive"/>
-    <div class="dropdown">
-      <label for="position">Select Candidate for {{ }}</label>
-    </div>
-    <CandidateList :candidates="candidates" :toggleModal="handleShowModal"/> 
+    <NavigationBar :show="true" :handleElectionType="handleElectionType" :isActive="isActive"/>
+      
+    <CandidateList :candidates="candidates" :toggleModal="handleShowModal" mode="voting"/> 
   </div>
   <ModalCard v-show="showModal" heading="Candidate Profile" :candidate="candidateProfile" :toggleModal="handleShowModal"/>
 </template >
@@ -17,7 +15,9 @@ import { candidateList} from '../data/data';
 
 // import Swal from 'sweetalert2'
 import {ref,onMounted} from 'vue'
+import {useRouter} from 'vue-router'
 import Swal from 'sweetalert2'
+const router =useRouter()
 const electionTypes =ref()
 const election =ref(0)
 const candidates =ref()
@@ -39,30 +39,61 @@ groupedCandidates.value = candidateList.reduce((result, candidate) => {
     electionTypes.value = Object.keys(result)
     return result;
 }, {});
-  console.log(Object.keys(groupedCandidates.value).length);
-  console.log(electionTypes.value);
+  // console.log(Object.keys(groupedCandidates.value).length);
+  // console.log(electionTypes.value);
   candidates.value =groupedCandidates.value[electionTypes.value[election.value]]
   isActive.value['position'] =electionTypes.value[election.value]
 
 })
 
- const filteredCandidates=()=> {
+ const filteredCandidates=async()=> {
       // Filter candidates based on selected position
       console.log(electionTypes.value[election.value]);
-      return election.value
-        ? candidateList.filter(candidate => candidate.position === electionTypes.value[election.value])
-        : candidateList;
+      isActive.value['position'] =electionTypes.value[election.value]
+      if(election.value){
+        candidates.value=[]
+        const type = electionTypes.value[election.value]
+        const result=candidateList.filter(candidate=>candidate.position == type)
+        console.log(result,'first');
+        candidates.value = result
+        console.log(candidates.value,'test');
+        return 
+      }
+      else{
+        candidates.value=[]
+        candidates.value = candidateList
+        return 
+      }
     }
 
 const handleElectionType =()=>{
   const  listLength = Object.keys(groupedCandidates.value).length
   if (election.value==(listLength-1)){
-    // isActive.value['state']=false
-    Swal.fire("No More Candidated",`Voting completed`, "info")
+    isActive.value['state']=false
+
+    Swal.fire({
+    title: "Submit Votes!",
+    text:`All votes will be submitted for counting`,
+    showCancelButton: true,
+    confirmButtonColor: '#008000',
+    cancelButtonColor: 'red',
+    cancelButtonText: "No, cancel it!",
+    confirmButtonText: 'Yes, I am sure!'
+    }).then( (result)=>{
+    if(result.isConfirmed){
+        // get all votes from localstorage
+        const votes =JSON.parse(localStorage.getItem('votes'))
+        console.log(votes);
+        router.push('/about')
+        Swal.fire("Vote Confirmed",`Vote Counted`, "success",)
+
+    }
+    }
+    )
     return;
 }
 ++election.value
-candidates.value = filteredCandidates()  
+filteredCandidates() 
 }
 
 
@@ -72,7 +103,7 @@ const handleShowModal=(candidate)=>{
 }
 
 </script>
-<style lang="css">
+<style lang="css" scoped>
 .home-page{
   display: flex;
   justify-content: start;
@@ -81,31 +112,5 @@ const handleShowModal=(candidate)=>{
   /* height: 100vh; */
 }
 
-.dropdown{
-  width: 100%;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px ;
-}
-.dropdown select{
-  padding: 10px;
-  width: 100%;
-  cursor: pointer;
-}
 
-.select-option{
-  padding: 5px;
-  height: 10px;
-  border-radius:0px ;
-  cursor: pointer;
-}
-
-label{
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--primary-color);
-}
 </style>
