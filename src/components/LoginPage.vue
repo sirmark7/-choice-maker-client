@@ -24,6 +24,7 @@ const details = {
   password: 'password'
 }
 const handleLogin = async() => {
+  const voteStatus= await JSON.parse(localStorage.getItem('votesStatus'))
   if (
     details.folio_number !== user.value.folio_number &&
     details.password !== user.value.password
@@ -42,7 +43,19 @@ const handleLogin = async() => {
             icon: 'success',
           
         });
-  router.push('/home')
+        if (voteStatus!== true) {
+          router.push('/home')
+          console.log(voteStatus);
+        }else{
+           Swal.fire({
+            title: 'You Have completed your Vote ',
+            text:   `Welcome `,
+            icon: 'success',
+          
+        });
+          router.push('/about')
+        }
+
   // const result = await login(user.value);
       // if (result.success) {
       //   setIsAuthenticated(true)

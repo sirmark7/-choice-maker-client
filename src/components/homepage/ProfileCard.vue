@@ -1,5 +1,5 @@
 <template>
- <div class="container">
+ <div class="container" autofocus>
     <div class="profile-page">
     <img class="profile-img" :src="`/images/${candidate?.img}`" :alt="candidate?.name">
     <h1>{{candidate?.name}}</h1>
@@ -34,7 +34,6 @@ const {candidate} =defineProps(['candidate'])
     display: flex;
     justify-content: center;
     align-items: center;
-
   }
   .profile-page{
     max-width: 500px;

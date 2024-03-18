@@ -1,7 +1,7 @@
 <template>
   <div class='home-page'>
     <NavigationBar :show="true" :handleElectionType="handleElectionType" :isActive="isActive"/>
-      
+      <span></span>
     <CandidateList :candidates="candidates" :toggleModal="handleShowModal" mode="voting"/> 
   </div>
   <ModalCard v-show="showModal" heading="Candidate Profile" :candidate="candidateProfile" :toggleModal="handleShowModal"/>
@@ -81,7 +81,9 @@ const handleElectionType =()=>{
     confirmButtonText: 'Yes, I am sure!'
     }).then( (result)=>{
     if(result.isConfirmed){
-        // get all votes from localstorage
+      //set voting status
+      localStorage.setItem('votesStatus',JSON.stringify(true))
+      // get all votes from localstorage
         const votes =JSON.parse(localStorage.getItem('votes'))
         console.log(votes);
         router.push('/about')
@@ -106,11 +108,16 @@ const handleShowModal=(candidate)=>{
 <style lang="css" scoped>
 .home-page{
   display: flex;
-  justify-content: start;
+  justify-content:flex-start;
   flex-direction: column;
-  align-items: center;
-  /* height: 100vh; */
+  align-items: start;
+  padding-top: 30vh;
+  height: 100vh;
 }
-
+.home-page>span{
+  display: block;
+  background: #000;
+  width: 100%;
+}
 
 </style>

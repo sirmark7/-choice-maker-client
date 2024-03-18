@@ -1,7 +1,7 @@
 <template >
   <div class="candidates">
 
- 
+
     <CandidateCard 
     :mode="mode"
     v-for="(candidate, index) in candidates"
@@ -44,21 +44,17 @@ import CandidateCard from './CandidateCard.vue'
       display: grid;
       grid-template-columns: 1fr;
       justify-items: center;
-      align-items: center;
+      align-items:center;
       gap: 2rem;
        flex: 1;
         padding: 10px 20px;
         align-content: center;
-        overflow-y: auto;
+        overflow-y: scroll;
         scroll-behavior: smooth;
-        margin-top: 60vh;
+        height: 100%;
+        padding-top:1rem ;
     }
-    .slider{
-      display: grid;
-      grid-template-columns: 1fr;
-      justify-items: center;
-      align-items: center;
-    }
+   
     @media screen and (min-width:700px) {
   nav{
     max-width: 1080px;

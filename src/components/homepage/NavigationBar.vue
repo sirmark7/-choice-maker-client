@@ -38,7 +38,7 @@ const handleLogout=async()=>{
         });
     router.push('/auth/login')
 }
-console.log(isActive);
+ 
 </script>
 <style lang="css" scoped>
 header{
@@ -48,8 +48,7 @@ header{
     align-items: center;
     justify-content: flex-start;
     position: fixed;
-    top: 0px; 
-    margin-bottom: 2rem;
+    top: 0px;
     background:var(--secondary-color);
     gap: 10px;
 }
@@ -111,7 +110,7 @@ label span{
 
 @media screen and (min-width:700px) {
   nav{
-    /* max-width: 1080px; */
+    max-width: 1080px;
     justify-content: space-between;
     padding: 1rem;
 }

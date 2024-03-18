@@ -2,7 +2,7 @@
     <div class='card-container'>
         <div class="profile">
             <img :src="image" :alt="candidate.name">
-            <p class=""> <span style="font-weight: bold;">Aspiring</span> <br> {{candidate.position.replace(/_/g," ") }}</p>
+            <p class=""> <span style="font-weight: bold;">Position</span> <br> {{candidate.position.replace(/_/g," ") }}</p>
             <div class="profile-text">
                 <h3>{{ candidate.name }}</h3>
                 <p> {{ candidate.motto }}</p>
@@ -61,15 +61,17 @@ const handleShowProfile=(candidate)=>{
     width: 100%;
 }
 
-    .btns,.profile{
+    .btns{
         display: flex;
         justify-content: space-evenly;
         padding: 5px;
     }
 
     .profile{
-        justify-content: space-between;
-        /* background: #000; */
+        display: grid;
+        grid-template-columns:100px 1fr ;
+        justify-content: flex-start;
+        grid-template-rows: 50px;
         gap: 2rem;
     }
 
@@ -81,6 +83,16 @@ const handleShowProfile=(candidate)=>{
 
     .profile >p {
     text-transform: capitalize;
+    column-span: all;
+    width: fit-content;
+    }
+     .profile-text{
+        grid-row: 2;
+        grid-column: 2;
+    }
+
+    .profile-text>h3{
+        text-align: left;
     }
     .btns button{
         width:100px ;
@@ -101,6 +113,7 @@ const handleShowProfile=(candidate)=>{
     .btns{
         gap: 10px;
     }
+   
      @media screen and (min-width:700px) {
         
        }
