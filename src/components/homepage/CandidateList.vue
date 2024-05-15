@@ -49,10 +49,7 @@ import CandidateCard from './CandidateCard.vue'
        flex: 1;
         padding: 10px 20px;
         align-content: center;
-        overflow-y: scroll;
         scroll-behavior: smooth;
-        height: 100%;
-        padding-top:1rem ;
     }
    
     @media screen and (min-width:700px) {

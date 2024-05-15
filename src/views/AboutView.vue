@@ -36,14 +36,15 @@ const handleShowModal=(candidate)=>{
     align-items: center;
     /* min-height: 100vh; */
     /* background: #d7c6c67d; */
-    padding-top: 30vh;
+    padding-top: 100px;
     width: 100%; 
 }
+
 .space{
     font-size: 2.5rem;
     position: fixed;
     top: 0;
-    z-index: 5;
+    z-index: 999;
     color: var(--secondary-color);
 }
 

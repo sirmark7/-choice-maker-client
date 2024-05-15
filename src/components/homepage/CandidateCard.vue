@@ -3,10 +3,14 @@
         <div class="profile">
             <img :src="image" :alt="candidate.name">
             <p class=""> <span style="font-weight: bold;">Position</span> <br> {{candidate.position.replace(/_/g," ") }}</p>
+                <span v-if="!mode" class="votes">{{candidate.votes }} votes</span>
             <div class="profile-text">
                 <h3>{{ candidate.name }}</h3>
                 <p> {{ candidate.motto }}</p>
+
             </div>
+
+            
         </div>
         <div class="btns">
             <!-- <button class=' btn btn-info' @click="$router.push(`/candidate/${candidate.name}`)" >View Profile</button> -->
@@ -46,6 +50,7 @@ const handleVote=(aspirant)=>{
 const handleShowProfile=(candidate)=>{
     toggleModal(candidate)
 }
+console.log(candidate);
 
 </script>
 <style lang="css" scoped>
@@ -68,11 +73,13 @@ const handleShowProfile=(candidate)=>{
     }
 
     .profile{
+        position: relative;
         display: grid;
         grid-template-columns:100px 1fr ;
         justify-content: flex-start;
         grid-template-rows: 50px;
         gap: 2rem;
+        z-index: 1;
     }
 
     .profile img{
@@ -93,6 +100,12 @@ const handleShowProfile=(candidate)=>{
 
     .profile-text>h3{
         text-align: left;
+    }
+
+    .votes{
+        position: absolute;
+        right: 10px;
+        top: 10px;
     }
     .btns button{
         width:100px ;

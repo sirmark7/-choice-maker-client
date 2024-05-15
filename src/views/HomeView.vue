@@ -95,7 +95,8 @@ const handleElectionType =()=>{
     return;
 }
 ++election.value
-filteredCandidates() 
+filteredCandidates()
+ 
 }
 
 

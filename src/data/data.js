@@ -2,6 +2,7 @@ export const candidateList=
 [
   {
     "_id": "65ee3ca7d6cd0c12729d205a",
+    "votes":0,
     "index": 0,
     "img": "avatar-m.png",
     "age": 28,
@@ -19,10 +20,12 @@ export const candidateList=
       "tempor aute Lorem occaecat aliquip consectetur tempor sit eiusmod cillum",
       "ex sunt sunt minim elit in proident sit adipisicing mollit",
       "voluptate elit nisi mollit tempor do esse consectetur nostrud non"
-    ]
+    ],
+
   },
   {
     "_id": "65ee3ca72d4b4bb5a3b865d7",
+    "votes":0,
     "index": 1,
     "img": "avatar-m.png",
     "age": 40,
@@ -44,6 +47,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca71f20a58ff14e0b00",
+    "votes":0,
     "index": 2,
     "img": "avatar-m.png",
     "age": 22,
@@ -65,6 +69,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca7d4e4b46cb900ffa3",
+    "votes":0,
     "index": 3,
     "img": "avatar-m.png",
     "age": 26,
@@ -86,6 +91,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca7b10c15e00c3d0ed6",
+    "votes":0,
     "index": 4,
     "img": "avatar-m.png",
     "age": 24,
@@ -107,6 +113,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca708940240ffcabe65",
+    "votes":0,
     "index": 5,
     "img": "avatar-m.png",
     "age": 40,
@@ -128,6 +135,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca75026614bd34b13d3",
+    "votes":0,
     "index": 6,
     "img": "avatar-m.png",
     "age": 20,
@@ -149,6 +157,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca70fbe344e42ff4b48",
+    "votes":0,
     "index": 7,
     "img": "avatar-m.png",
     "age": 34,
@@ -170,6 +179,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca7ce3243d929b9072d",
+    "votes":0,
     "index": 8,
     "img": "avatar-m.png",
     "age": 36,
@@ -191,6 +201,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca7cb2a1faea107dbfe",
+    "votes":0,
     "index": 9,
     "img": "avatar-m.png",
     "age": 34,
@@ -212,6 +223,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca746e9a5c7f9dcbfec",
+    "votes":0,
     "index": 10,
     "img": "avatar-m.png",
     "age": 29,
@@ -233,6 +245,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca752cc13fc2720e244",
+    "votes":0,
     "index": 11,
     "img": "avatar-m.png",
     "age": 29,
@@ -254,6 +267,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca74795a43638c1cf25",
+    "votes":0,
     "index": 12,
     "img": "avatar-m.png",
     "age": 35,
@@ -275,6 +289,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca77abd3a1e9aced8b6",
+    "votes":0,
     "index": 13,
     "img": "avatar-m.png",
     "age": 33,
@@ -296,6 +311,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca76bd57f4fb9df5083",
+    "votes":0,
     "index": 14,
     "img": "avatar-m.png",
     "age": 39,
@@ -317,6 +333,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca7e201ce6818315244",
+    "votes":0,
     "index": 15,
     "img": "avatar-m.png",
     "age": 38,
@@ -338,6 +355,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca7d7f8f2768402a889",
+    "votes":0,
     "index": 16,
     "img": "avatar-m.png",
     "age": 27,
@@ -359,6 +377,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca72d55cc0769ce37f1",
+    "votes":0,
     "index": 17,
     "img": "avatar-m.png",
     "age": 38,
@@ -380,6 +399,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca747dbfc4c5efc0172",
+    "votes":0,
     "index": 18,
     "img": "avatar-m.png",
     "age": 26,
@@ -401,6 +421,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca7bb6c0ba3e0921315",
+    "votes":0,
     "index": 19,
     "img": "avatar-m.png",
     "age": 35,
@@ -422,6 +443,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca78fd2d12abd88450d",
+    "votes":0,
     "index": 20,
     "img": "avatar-m.png",
     "age": 32,
@@ -443,6 +465,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca7afa0837dab013779",
+    "votes":0,
     "index": 21,
     "img": "avatar-m.png",
     "age": 35,
@@ -464,6 +487,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca75b3d941efa9bc4a4",
+    "votes":0,
     "index": 22,
     "img": "avatar-m.png",
     "age": 23,
@@ -485,6 +509,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca7c38530c18b9f6512",
+    "votes":0,
     "index": 23,
     "img": "avatar-m.png",
     "age": 35,
@@ -506,6 +531,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca7996355b531042f1b",
+    "votes":0,
     "index": 24,
     "img": "avatar-m.png",
     "age": 23,
@@ -527,6 +553,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca78bde1d439a74dcdc",
+    "votes":0,
     "index": 25,
     "img": "avatar-m.png",
     "age": 28,
@@ -548,6 +575,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca797eba1f1b9638e32",
+    "votes":0,
     "index": 26,
     "img": "avatar-m.png",
     "age": 29,
@@ -569,6 +597,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca75f8241bf916e5846",
+    "votes":0,
     "index": 27,
     "img": "avatar-m.png",
     "age": 40,
@@ -590,6 +619,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca7d34b42d840ec8242",
+    "votes":0,
     "index": 28,
     "img": "avatar-m.png",
     "age": 36,
@@ -611,6 +641,7 @@ export const candidateList=
   },
   {
     "_id": "65ee3ca773ad88346ef3e49d",
+    "votes":0,
     "index": 29,
     "img": "avatar-m.png",
     "age": 20,

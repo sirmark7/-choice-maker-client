@@ -42,6 +42,9 @@ const handleLogout=async()=>{
 </script>
 <style lang="css" scoped>
 header{
+    position: relative;
+    z-index: 999;
+    top: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
