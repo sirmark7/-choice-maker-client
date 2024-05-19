@@ -28,7 +28,7 @@
      align-items: center;
      height:100dvh;
      width: 100vw;   
-     z-index: 99;
+     z-index: 999999;
      top: 0;
     left: 0;
     background-color: rgba(1, 1, 1, 0.695);

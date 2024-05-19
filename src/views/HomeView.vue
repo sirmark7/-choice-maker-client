@@ -111,7 +111,7 @@ const handleShowModal=(candidate)=>{
   display: flex;
   justify-content:flex-start;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   padding-top: 30vh;
   height: 100vh;
 }

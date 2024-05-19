@@ -64,6 +64,7 @@ console.log(candidate);
     flex-direction: column;
     gap: 2rem;
     width: 100%;
+    box-shadow: 2px 2px 4px 2px #8f8d8d, -2px -2px 2px #f1f1f1;
 }
 
     .btns{

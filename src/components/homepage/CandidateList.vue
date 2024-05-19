@@ -50,6 +50,7 @@ import CandidateCard from './CandidateCard.vue'
         padding: 10px 20px;
         align-content: center;
         scroll-behavior: smooth;
+        box-shadow: -1px -1px 4px 2px #f1f1f1;
     }
    
     @media screen and (min-width:700px) {
