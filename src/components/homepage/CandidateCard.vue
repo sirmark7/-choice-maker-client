@@ -23,7 +23,7 @@
 <script setup>
 import Swal from 'sweetalert2'
 import Helpers from '../../services/helpers'
-const {candidate,toggleModal,mode} =defineProps(['candidate','toggleModal','mode'])
+const {candidate,toggleModal,mode,handleNext} =defineProps(['candidate','toggleModal','mode','handleNext'])
 const image ='/images/'+candidate.img
 
 const handleVote=(aspirant)=>{
@@ -42,6 +42,8 @@ const handleVote=(aspirant)=>{
 
         Helpers.storeData(aspirant)
         Swal.fire("Vote Confirmed",`Vote Counted`, "success",)
+        .then(()=>handleNext())
+       
     }
     }
     )

@@ -2,7 +2,7 @@
   <div class='home-page'>
     <NavigationBar :show="true" :handleElectionType="handleElectionType" :isActive="isActive"/>
       <span></span>
-    <CandidateList :candidates="candidates" :toggleModal="handleShowModal" mode="voting"/> 
+    <CandidateList :candidates="candidates" :toggleModal="handleShowModal" mode="voting" :handleNext="handleElectionType"/> 
   </div>
   <ModalCard v-show="showModal" heading="Candidate Profile" :candidate="candidateProfile" :toggleModal="handleShowModal"/>
 </template >

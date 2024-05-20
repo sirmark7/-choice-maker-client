@@ -13,7 +13,8 @@
         </nav>
            <div v-if="show" class="election-nav" >
              <h1 class='btn active' title="position" >{{ isActive?.position.replace(/_/g,' ') }}</h1>
-            <button class='btn' title=" switch SRC Elections"  @click="handleElectionType">Next</button>
+            <!-- <button class='btn' title=" switch SRC Elections"  @click="handleElectionType">Next</button> -->
+            <button class='btn' title=" switch SRC Elections"  @click="()=>{}">Next</button>
            </div>
            <label v-if="show" >Select Candidate for <span>{{isActive?.position.replace(/_/g,' ') }}</span></label>
     </header>
@@ -88,12 +89,14 @@ h1{
     font-size: 1.5rem;
     cursor: pointer;
     background: var(--primary-color);
+    color: #615f5f;
     
 }
 .btn.active{
-    background: var(--secondary-color);
+    background: var(--secondary-color); 
     color: var(--primary-color);
     text-transform: capitalize;
+  
    
 }
 label{

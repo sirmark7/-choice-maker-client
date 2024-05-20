@@ -8,7 +8,8 @@
     :key="index"
     :index="index"
     :candidate="candidate"
-    :toggleModal="toggleModal"   
+    :toggleModal="toggleModal"
+    :handleNext="handleNext"   
     />
    
 
@@ -34,7 +35,7 @@ import CandidateCard from './CandidateCard.vue'
       windowWidth.value = window.innerWidth;
     };
 
- const {candidates,toggleModal,mode}=defineProps(['candidates','toggleModal','mode'])
+ const {candidates,toggleModal,mode,handleNext}=defineProps(['candidates','toggleModal','mode','handleNext'])
 
 
 
