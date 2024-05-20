@@ -89,15 +89,14 @@ h1{
     font-size: 1.5rem;
     cursor: pointer;
     background: var(--primary-color);
-    color: #615f5f;
+    
     
 }
+/* nav .btn{color: #615f5f;} */
 .btn.active{
     background: var(--secondary-color); 
     color: var(--primary-color);
     text-transform: capitalize;
-  
-   
 }
 label{
   
