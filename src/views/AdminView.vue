@@ -13,9 +13,9 @@
     <div class="main_side">
         <nav class="sidebar">
 
-            <RouterLink class="side-nav " v-for="navItem in navItems" :key="navItem.name"   :to="navItem.link"  >
+            <RouterLink class="side-nav " :class="{active: $route.path === navItem.link }" v-for="navItem in navItems" :key="navItem.name"   :to="navItem.link"  >
                     {{ navItem.name }}
-                </RouterLink>
+            </RouterLink>
             
             <button class="log-out btn side-nav" @click="handleLogout">
                     Log Out
@@ -41,7 +41,8 @@ const router =useRouter()
 const navItems = [
     {link:'/admin',name:'Dashboard'},
     {link:'/admin/add-election', name:'Create Elections'},
-    {link:'/admin/view-election', name:'View Elections'}
+    {link:'/admin/view-election', name:'View Elections'},
+    {link:'/admin/create-user', name:'Create User'}
     ]
 
 const handleLogout=async()=>{
@@ -51,7 +52,8 @@ const handleLogout=async()=>{
             text:   `Good Bye`,
             icon: 'success',
         });
-    router.push('/auth/login')
+        
+    router.push('/auth/admin')
 }
 </script>
 
@@ -144,7 +146,10 @@ h1{
     bottom: 20px;
     width: 95%;
 }
-
+.active.side-nav{
+    background:var(--primary-color);
+    color: var(--secondary-color);
+}
 
 .display{
     background: #802247;

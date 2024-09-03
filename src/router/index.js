@@ -11,6 +11,8 @@ import AddElections from '../components/adminpage/AddElection.vue'
 import ViewElections from '../components/adminpage/ViewElections.vue'
 import { useAuthStore } from '../stores/auth'
 import AboutView from '../views/AboutView.vue'
+import DashboardOverview from '../components/adminpage/DashboadOverview.vue'
+import CreateUser from '../components/adminpage/CreateUser.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -53,6 +55,9 @@ const router = createRouter({
       },
       component: AdminView,
       children: [
+        {path:'',
+          component:DashboardOverview
+        },
         {
           path: 'add-election',
           name: 'ElectAdd',
@@ -62,6 +67,11 @@ const router = createRouter({
           path: 'view-election',
           name: 'ManageElect',
           component: ViewElections
+        },
+        {
+          path: 'create-user',
+          name: 'CreateUser',
+          component: CreateUser
         },
       ]
     },
