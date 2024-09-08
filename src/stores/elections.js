@@ -61,6 +61,6 @@ export const useElections = defineStore('elections', {
 
 getters:{
   getEletions:(state) => state.elections,
-  getEletionsCount:(state) => state.elections.length
+  getEletionsCount:(state) => state.elections?.length?state.elections?.length:0
 }
 })

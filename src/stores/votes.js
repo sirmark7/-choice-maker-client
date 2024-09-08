@@ -33,6 +33,6 @@ export const useVotes = defineStore('votes', {
 
 getters:{
   getVotes:(state) => state.allVotes,
-  getVotesCount:(state)=>state.allVotes?.length
+  getVotesCount:(state)=>state.allVotes?.length?state.allVotes?.length:0
 }
 })

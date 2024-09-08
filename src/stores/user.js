@@ -18,7 +18,7 @@ export const useUserStore = defineStore('user', {
       return state.user
     },
     getUsersCount(state){
-      return state.users.length
+      return state.users?.length?state.users?.length:0
     }
   },
   // setter functions
