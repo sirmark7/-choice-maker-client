@@ -28,21 +28,32 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      activeElectionsCount: 3,
-      totalUsersCount: 150,
-      totalVotesCast: 320,
-      recentActivities: [
-        { id: 1, message: 'New election created: School President' },
-        { id: 2, message: 'User John Doe added to the system' },
-        { id: 3, message: 'Election results published for School President' },
-      ],
-    };
-  },
-};
+<script setup>
+import {ref,onMounted} from 'vue'
+import {useElections} from '../../stores/elections'
+// import {useCandidates} from '../../stores/candidates'
+// import {usePositions} from '../../stores/position'
+import {useLoaderStore} from  '../../stores/loader'
+import {useUserStore} from '../../stores/user'
+import {useVotes} from '../../stores/votes'
+const {getEletionsCount}=useElections()
+// const {getCandidates}=useCandidates()
+// const {getPositions}=usePositions()
+const {setIsLoading}=useLoaderStore()
+const {getUsersCount}=useUserStore()
+const {getVotesCount}=useVotes()
+const totalVotesCast=ref()
+const totalUsersCount=ref()
+const activeElectionsCount=ref()
+const recentActivities=ref([])
+
+onMounted(()=>{
+  setIsLoading(true)
+  totalUsersCount.value=getUsersCount
+  activeElectionsCount.value=getEletionsCount
+  totalVotesCast.value=getVotesCount
+  setIsLoading(false)
+})
 </script>
 
 <style scoped>
@@ -77,6 +88,12 @@ nav a:hover {
   padding: 20px;
   border-radius: 8px;
   text-align: center;
+}
+.card  p{
+  font-size: larger;
+  color: #24904d;
+  font-weight: 800;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .recent-activity {

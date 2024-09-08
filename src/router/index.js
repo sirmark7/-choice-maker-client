@@ -9,10 +9,15 @@ import AdminAuth from '../components/AdminAuth.vue'
 import ProfileCard from '../components/homepage/ProfileCard.vue'
 import AddElections from '../components/adminpage/AddElection.vue'
 import ViewElections from '../components/adminpage/ViewElections.vue'
+import AddPositions from '../components/adminpage/AddPositions.vue'
+import ViewPositions from '../components/adminpage/ViewPositions.vue'
+import AddCategories from '../components/adminpage/AddCategories.vue'
+import ViewCategories from '../components/adminpage/ViewCategories.vue'
 import { useAuthStore } from '../stores/auth'
 import AboutView from '../views/AboutView.vue'
 import DashboardOverview from '../components/adminpage/DashboadOverview.vue'
 import CreateUser from '../components/adminpage/CreateUser.vue'
+import ViewUser from '../components/adminpage/ViewUser.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -56,6 +61,7 @@ const router = createRouter({
       component: AdminView,
       children: [
         {path:'',
+        name:'admin-home',
           component:DashboardOverview
         },
         {
@@ -67,6 +73,31 @@ const router = createRouter({
           path: 'view-election',
           name: 'ManageElect',
           component: ViewElections
+        },
+        {
+          path: 'add-positions',
+          name: 'ManagePositions',
+          component: AddPositions
+        },
+        {
+          path: 'view-positions',
+          name: 'ViewPositions',
+          component: ViewPositions
+        },
+        {
+          path: 'add-categories',
+          name: 'ManageCategories',
+          component: AddCategories
+        },
+        {
+          path: 'view-categories',
+          name: 'ViewCategories',
+          component: ViewCategories
+        },
+        {
+          path: 'view-user',
+          name: 'ViewUser',
+          component: ViewUser
         },
         {
           path: 'create-user',

@@ -17,15 +17,15 @@ export const useAuthStore = defineStore("auth", {
 	},
 	async login(userData) {
       try {
-        const response = await service.post('/users/login', userData);
-		console.log(userData.password);
-        const { token,data} = response.data;
+        const response = await service.post('/auth/login', userData);
+		console.log(response.data);
+        const { token,user} = response.data;
         this.token = token;
-        this.user = data.user;
+        this.user = user;
 		localStorage.setItem('token',this.token)
-        localStorage.setItem('userInfo',JSON.stringify(this.user))
+     localStorage.setItem('userInfo',JSON.stringify(this.user))
 		
-        return { success: true, data };
+        return { success: true, data:{token,user} };
       } catch (error) {
         // console.error('Login error:', error);
         return { success: false, message: error };
@@ -34,10 +34,10 @@ export const useAuthStore = defineStore("auth", {
 
     async signup(userData) {
       try {
-        const response = await service.post('/users/signup', userData);
+        const response = await service.post('/auth/register', userData);
 
-        const { status, data } = response.data;
-        if(status=='success'){
+        const { message, data } = response.data;
+        if(message.includes('success')){
         return { success: true, data};
         }
       } catch (error) {

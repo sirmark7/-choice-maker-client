@@ -1,26 +1,25 @@
 
 import { defineStore } from 'pinia'
 import service from '../services/request';
-
-export const useElections = defineStore('elections', {
+export const usePositions = defineStore('positions', {
   // define store variable
   	state: () => ({
-		elections: null,
+		allPositions: null,
 	}),
 
   // define a function to change the variable
   actions:
   {
-	setElection(data){
-		this.elections=data
+	setPositions(data){
+		this.allPositions=data
 	},
-		async getAllElections() {
+	async getAllPositions() {
       try {
-        const response = await service.get('/elections');
+        const response = await service.get('/positions');
 
         const { message,data} = response.data;
 
-        this.setElection(data)
+        this.setPositions(data)
 		console.log(message,data);
 		
         return { success: true, data };
@@ -29,13 +28,13 @@ export const useElections = defineStore('elections', {
         return { success: false, message: error };
       }
     },
-    	async addElection(body) {
+    	async addPosition(body) {
       try {
-        const response = await service.post('/elections',body);
+        const response = await service.post('/positions',body);
 
         const { message,data} = response.data;
 
-        this.setElection([...this.elections,data])
+        this.setPositions([...this.allPositions,data])
 		
         return { success: true, data,message };
       } catch (error) {
@@ -43,13 +42,13 @@ export const useElections = defineStore('elections', {
         return { success: false, message: error };
       }
     },
-    async deleteElection(id) {
+     async deletePosition(id) {
       try {
-        const response = await service.delete(`/elections/${id}`);
+        const response = await service.delete(`/positions/${id}`);
 
         const { message,data} = response.data;
-        const list =this.elections.filter((item) => item._id !== data.id);
-        this.setElection(list)
+        const list =this.allPositions.filter((item) => item._id !== data.id);
+        this.setPositions(list)
             return { success: true, data,message };
 
     }catch (error) {
@@ -60,7 +59,6 @@ export const useElections = defineStore('elections', {
 },
 
 getters:{
-  getEletions:(state) => state.elections,
-  getEletionsCount:(state) => state.elections.length
+  getpositions:(state) => state.allPositions,
 }
 })

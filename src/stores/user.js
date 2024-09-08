@@ -1,12 +1,13 @@
 
 import { defineStore } from 'pinia'
-import resource from '../services/resources'
+import service from '../services/request';
 
 export const useUserStore = defineStore('user', {
   // state value
   state: () => ({
     users: [],
-    user:{}
+    user:{},
+    newUser:{}
   }),
   // getter functions
   getters: {
@@ -15,83 +16,72 @@ export const useUserStore = defineStore('user', {
     },
     getUser(state) {
       return state.user
+    },
+    getUsersCount(state){
+      return state.users.length
     }
   },
   // setter functions
   actions: {
-
     setUser(data){
       this.user =data
     },
-    fetchUsersAction() {
-      return new Promise((resolve, reject) => {
-        new resource('todos')
-          .list({})
-          .then((res) => {
-            resolve((this.users = res.data))
-          })
-          .catch((error) => {
-            reject(error)
-          })
-      })
+     setUsers(data){
+      this.users =data
+    },
+     setNewUser(data){
+      this.newUser =data
+    },
+  async getAllUsers() {
+      try {
+        const response = await service.get('/users');
+
+        const data= response.data;
+
+        this.setUsers(data)
+		console.log(data);
+		
+        return { success: true, data };
+      } catch (error) {
+        // console.error('Login error:', error);
+        return { success: false, message: error };
+      }
     },
 
-    createUsersAction(userData) {
-      return new Promise((resolve, reject) => {
-        new resource('todos')
-          .store(userData)
-          .then((res) => {
-            const createdUser = res.data
-            this.users = [createdUser, ...this.users]
-            resolve(res)
-          })
-          .catch((error) => {
-            reject(error)
-          })
-      })
-    },
+    async addUser(userData) {
+      try {
+        let response;
+        if(userData.role === 'admin'||userData.role === 'stuff'){
+          delete userData.role
+          
+        response = await service.post('/auth/register/admin',userData);
+        }
+        else{
+        response = await service.post('/auth/register',userData);
 
-    updateUsersAction(userData, id) {
-      return new Promise((resolve, reject) => {
-        new resource('todos')
-          .update(userData, id)
-          .then((res) => {
-            const updatedUser = res.data
-            this.users = this.users.map((user) => {
-              if (user.id === id) {
-                return updatedUser
-              }
-              return user
-            })
-            resolve(res)
-          })
-          .catch((error) => {
-            reject(error)
-          })
-      })
-    },
+        }
 
-    deleteUsersAction(id) {
-      return new Promise((resolve, reject) => {
-        new resource('todos')
-          .destroy(id)
-          .then((res) => {
-            this.users = this.users.filter((user) => user.id !== id)
-            resolve(res)
-          })
-          .catch((err) => reject(err))
-      })
-    },
+        const { message,data} = response.data;
+		    console.log(message,data);
 
-    resetPasswordAction(resetData, id) {
-      return new Promise((resolve, reject) => {
-        new resource('reset')
-          .update(resetData, id)
-          .then((res) => {
-            resolve(res)
-          })
-          .catch((err) => reject(err))
-      })
-    }
+        this.setUsers([...this.users,data])
+		
+        return { success: true, data };
+      } catch (error) {
+        // console.error('Login error:', error);
+        return { success: false, message: error };
+      }
+    },
+    async deleteUser(id) {
+      try {
+        const response = await service.delete(`/users/${id}`);
+        const { message ,data} = response.data;
+        this.setUsers(this.users.filter((user) => user.id !== data.id))
+        return { success: true, message,data };
+      } catch (error) {
+        // console.error('Login error:', error);
+        return { success: false, message: error };
+      }
+    },
   }
 })

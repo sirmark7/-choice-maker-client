@@ -1,17 +1,17 @@
 <template>
  <div class="container" autofocus>
     <div class="profile-page">
-    <img class="profile-img" :src="`/images/${candidate?.img}`" :alt="candidate?.name">
-    <h1>{{candidate?.name}}</h1>
+    <img class="profile-img" :src="`/images/${candidate?.img}`" :alt="candidate?.student?.name">
+    <h1>{{candidate?.student?.name}}</h1>
     <div class="profile-details">
       <span>
         <h2>Biography</h2>
-        <p>{{ candidate?.biography }}</p>
+        <p>{{ candidate?.manifesto }}</p>
       </span>
       <span>
         <h3>Policies</h3>
         <ul class="policies">
-          <li v-for="(policy,i) in candidate?.policies" :key="i" >{{ policy }}</li>
+          <li v-for="(policy,i) in candidate?.policies?.split('-')" :key="i" >{{ policy }}</li>
         </ul>
       </span>
       </div>

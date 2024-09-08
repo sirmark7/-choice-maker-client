@@ -1,12 +1,13 @@
 <template >
     <div class='card-container'>
+       
         <div class="profile">
-            <img :src="image" :alt="candidate.name">
-            <p class=""> <span style="font-weight: bold;">Position</span> <br> {{candidate.position.replace(/_/g," ") }}</p>
-                <span v-if="!mode" class="votes">{{candidate.votes }} votes</span>
+            <img :src="image" :alt="candidate?.student.name">
+            <p class=""> <span style="font-weight: bold;">Position</span> <br> {{candidate?.position?.name.replace(/_/g," ") }}</p>
+                <span v-if="!mode" class="votes">{{candidate?.votes }} votes</span>
             <div class="profile-text">
-                <h3>{{ candidate.name }}</h3>
-                <p> {{ candidate.motto }}</p>
+                <h3>{{ candidate?.student.name }}</h3>
+                <p> {{ candidate?.manifesto }}</p>
 
             </div>
 
@@ -22,27 +23,41 @@
 </template>
 <script setup>
 import Swal from 'sweetalert2'
-import Helpers from '../../services/helpers'
+// import Helpers from '../../services/helpers'
+import service from '../../services/request'
+import {useLoaderStore} from '../../stores/loader'
 const {candidate,toggleModal,mode,handleNext} =defineProps(['candidate','toggleModal','mode','handleNext'])
 const image ='/images/'+candidate.img
-
-const handleVote=(aspirant)=>{
+const {setIsLoading} = useLoaderStore()
+const handleVote=async(aspirant)=>{
+    const user=JSON.parse(localStorage.getItem('userInfo'))
     Swal.fire({
     title: "Confirm Vote!",
-    text:`Are you sure you want to vote for ${aspirant.name} ?`,
+    text:`Are you sure you want to vote for ${aspirant?.student?.name} ?`,
     showCancelButton: true,
     confirmButtonColor: '#008000',
     cancelButtonColor: 'red',
     cancelButtonText: "No, cancel it!",
     confirmButtonText: 'Yes, I am sure!'
-    }).then( (result)=>{
+    })
+    .then( (result)=>{
     if(result.isConfirmed){
+        setIsLoading(true)
         aspirant['voted']=true
-        console.log(aspirant);
+        const body ={userId:user.id,candidateId:aspirant.id}
+         service.post('/votes',body)
+         .then((result)=>{
+            console.log(result);
+            setIsLoading(false)
+            if(result?.data?.message.includes('success')){
+            Swal.fire("Vote Confirmed",`Vote Counted`, "success",)
+            .then(()=>handleNext())
+            }
+         })
+            .catch((err)=>Swal.fire("Error",`${err?.response?.data?.error}`,"error"))
 
-        Helpers.storeData(aspirant)
-        Swal.fire("Vote Confirmed",`Vote Counted`, "success",)
-        .then(()=>handleNext())
+         
+        console.log(aspirant);
        
     }
     }

@@ -1,15 +1,15 @@
 import axios from 'axios'
 
 //API to test requests
-const baseURL = 'http://localhost:8081/api/v1'
+const baseURL = 'http://localhost:4000/api'
 
 const service = axios.create({
   baseURL:baseURL,
   timeout: 5000,
   headers: {
-    Accepted: 'application/json',
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
+    // Accepted: 'application/json',
+    // 'Content-Type': 'application/json',
+    // 'X-Requested-With': 'XMLHttpRequest'
   }
 })
 
@@ -21,7 +21,8 @@ const service = axios.create({
 
 service.interceptors.request.use(
   (config) => {
-    const token = ''
+    
+    const token = localStorage.getItem('token')?localStorage.getItem('token'):'';
     config.headers['Authorization'] = `Bearer ${token}`
     return config
   },
