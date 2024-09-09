@@ -26,8 +26,11 @@ import Swal from 'sweetalert2'
 // import Helpers from '../../services/helpers'
 import service from '../../services/request'
 import {useLoaderStore} from '../../stores/loader'
+import {useCounterStore} from '../../stores/counter'
+const {increment}=useCounterStore()
 const {candidate,toggleModal,mode,handleNext} =defineProps(['candidate','toggleModal','mode','handleNext'])
-const image ='/images/'+candidate.img
+const image = candidate.img?'/images/'+candidate.img:'/images/choicemaker-user.png'
+
 const {setIsLoading} = useLoaderStore()
 const handleVote=async(aspirant)=>{
     const user=JSON.parse(localStorage.getItem('userInfo'))
@@ -40,12 +43,13 @@ const handleVote=async(aspirant)=>{
     cancelButtonText: "No, cancel it!",
     confirmButtonText: 'Yes, I am sure!'
     })
-    .then( (result)=>{
+    .then( async(result)=>{
     if(result.isConfirmed){
         setIsLoading(true)
+        increment()
         aspirant['voted']=true
         const body ={userId:user.id,candidateId:aspirant.id}
-         service.post('/votes',body)
+        await service.post('/votes',body)
          .then((result)=>{
             console.log(result);
             setIsLoading(false)
@@ -55,9 +59,6 @@ const handleVote=async(aspirant)=>{
             }
          })
             .catch((err)=>Swal.fire("Error",`${err?.response?.data?.error}`,"error"))
-
-         
-        console.log(aspirant);
        
     }
     }

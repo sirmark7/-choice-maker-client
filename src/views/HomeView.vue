@@ -1,18 +1,18 @@
 <template>
   <div class='home-page'>
-    <NavigationBar :show="true" :handleElectionType="handleElectionType" :isActive="isActive" :category="electionCategory"/>
+    <NavigationBar :show="true" :handleElectionType="handleElectionType" :isActive="isActive" :electionName="electionName" :category="categoryName"/>
       <span></span>
     <CandidateList :candidates="candidates" :toggleModal="handleShowModal" mode="voting" :handleNext="handleElectionType"/> 
   </div>
   <ModalCard v-show="showModal" heading="Candidate Profile" :candidate="candidateProfile" :toggleModal="handleShowModal"/>
- <LoaderModal v-show="loading"/>
+ <!-- <LoaderModal v-show="loading"/> -->
 </template >
 
 <script setup>
 import ModalCard from '../components/ModalCard.vue';
 import CandidateList from '../components/homepage/CandidateList.vue';
 import NavigationBar from '../components/homepage/NavigationBar.vue';
-import {useCandidates} from '../stores/candidates'
+
 import {useElections} from '../stores/elections'
 import {useLoaderStore} from '../stores/loader'
 import LoaderModal from '../components/LoaderModal.vue'
@@ -20,90 +20,90 @@ import LoaderModal from '../components/LoaderModal.vue'
 import {ref,onMounted} from 'vue'
 import {useRouter} from 'vue-router'
 import Swal from 'sweetalert2'
-const {getAllCandidates,allCandidates}=useCandidates()
-const {getAllElections,getEletions}=useElections()
+
+const {getAllElectionsWithCandidates,getEletionCandidates,getEletionsCount}=useElections()
 const {isLoading}=useLoaderStore()
 const router =useRouter()
 const electionTypes =ref()
-const electionCategory =ref()
-const election =ref(0)
+const elections =ref(getEletionCandidates)
+const electionName =ref()
+const currentElection =ref(0)
+const electionCount=ref(getEletionsCount)
+const currentPosition =ref(0)
+const positionCount =ref()
+const categoryName=ref()
+const positions=ref([])
 const candidates =ref()
 const loading=ref(isLoading)
 const isActive =ref({position:'',state:true})
 const showModal=ref(false)
 const candidateProfile=ref({})
-const groupedCandidates=ref()
-
-const filteredCandidates=async()=> {
-      // Filter candidates based on selected position
-
-      console.log(electionTypes.value[election.value]);
-     
-    }
-
 onMounted(async()=>{
-await getAllCandidates()
+await getAllElectionsWithCandidates()
 .then((res)=>{
-  console.log(res.data);
-  
-  groupedCandidates.value=res.data.reduce((result, candidate) => {
-    // Get the category name
-    const categoryName = candidate?.position?.category?.name;
-  console.log(categoryName);
-  
-    // If the category doesn't exist in the result, create an empty array for it
-    if (!result[categoryName]) {
-      result[categoryName] = [];
-    }
+  elections.value=res.data
+  electionName.value=res.data[currentElection.value]?.name
+  electionCount.value=res.data?.length
+  positions.value=res.data[currentElection.value]?.positions
+  positionCount.value=positions.value?.length;
+  isActive.value.position=positions.value[currentPosition.value]?.name
+  categoryName.value=positions.value[currentPosition.value]?.category.name
+  candidates.value=positions.value[currentPosition.value].candidates
+console.log(positionCount.value);
 
-    // Add the candidate to the array for the category
-    result[categoryName].push(candidate);
-    return result;
-  }, {});
-  console.log(groupedCandidates.value);
-  electionTypes.value = Object.keys(groupedCandidates.value)
-  isActive.value['position'] =groupedCandidates.value[electionTypes.value[election.value]][0].position.name
-  electionCategory.value = groupedCandidates.value[electionTypes.value[election.value]][0].position.category.name
 }  )
-
-.then(()=>(null))
 
 }
 )
+const handleFilter=()=> {
+    console.log(currentElection.value,electionCount.value,currentPosition.value,positionCount.value);
+      // Filter candidates based on selected position
+  electionName.value=elections.value[currentElection.value]?.name
+  positions.value=elections.value[currentElection.value]?.positions
+  positionCount.value=elections.value[currentElection.value]?.positions?.length;
+  isActive.value.position=positions.value[currentPosition.value]?.name
+  categoryName.value=positions.value[currentPosition.value]?.category.name
+  candidates.value=positions.value[currentPosition.value].candidates
+     
+    }
 
- 
+
 
 const handleElectionType =()=>{
-  const  listLength = Object.keys(groupedCandidates.value).length
-  if (election.value==(listLength-1)){
-
+  console.log(currentElection.value,electionCount.value,currentPosition.value,positionCount.value);
+  
+  if (currentElection.value===electionCount.value-1 && currentPosition.value===positionCount.value-1){
     isActive.value['state']=false
-
-    Swal.fire({
-    title: "Submit Votes!",
-    text:`All votes will be submitted for counting`,
-    showCancelButton: true,
-    confirmButtonColor: '#008000',
-    cancelButtonColor: 'red',
-    cancelButtonText: "No, cancel it!",
-    confirmButtonText: 'Yes, I am sure!'
-    }).then( (result)=>{
-    if(result.isConfirmed){
-      //set voting status
       localStorage.setItem('votesStatus',JSON.stringify(true))
       // get all votes from localstorage
-        const votes =JSON.parse(localStorage.getItem('votes'))
-        console.log(votes);
+      console.log('first');
         router.push('/about')
-        Swal.fire("Vote Confirmed",`Vote Counted`, "success",)
-    }
-    }
-    )
+        Swal.fire("Votes Confirmed",`Vote Counted`, "success",)
     return;
-}
-++election.value
-filteredCandidates()
- 
+    }
+    else if(currentElection.value==electionCount.value-1 && currentPosition.value<positionCount.value-1){
+      console.log('second');
+
+      ++currentPosition.value
+      handleFilter()
+      return;
+    }
+    else if(currentElection.value<electionCount.value-1 && currentPosition.value==positionCount.value-1){
+      console.log('third');
+
+      ++currentElection.value
+      currentPosition.value=0
+      handleFilter()
+      return;
+    }
+    else if(currentElection.value<electionCount.value-1 && currentPosition.value<positionCount.value-1){
+      console.log('forth');
+
+       ++currentPosition.value
+      handleFilter()
+      return;
+    }
+    
 }
 
 

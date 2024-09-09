@@ -5,7 +5,8 @@ import service from '../services/request';
 export const useElections = defineStore('elections', {
   // define store variable
   	state: () => ({
-		elections: null,
+		elections: [],
+    electionCandidates:[]
 	}),
 
   // define a function to change the variable
@@ -14,6 +15,9 @@ export const useElections = defineStore('elections', {
 	setElection(data){
 		this.elections=data
 	},
+	setElectionCandidates(data){
+		this.electionCandidates=data
+	},
 		async getAllElections() {
       try {
         const response = await service.get('/elections');
@@ -21,6 +25,21 @@ export const useElections = defineStore('elections', {
         const { message,data} = response.data;
 
         this.setElection(data)
+		console.log(message,data);
+		
+        return { success: true, data };
+      } catch (error) {
+        // console.error('Login error:', error);
+        return { success: false, message: error };
+      }
+    },
+		async getAllElectionsWithCandidates() {
+      try {
+        const response = await service.get('/elections/candidates');
+
+        const { message,data} = response.data;
+
+        this.setElectionCandidates(data)
 		console.log(message,data);
 		
         return { success: true, data };
@@ -61,6 +80,7 @@ export const useElections = defineStore('elections', {
 
 getters:{
   getEletions:(state) => state.elections,
+  getEletionCandidates:(state)=>state.electionCandidates,
   getEletionsCount:(state) => state.elections?.length?state.elections?.length:0
 }
 })

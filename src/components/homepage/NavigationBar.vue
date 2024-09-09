@@ -12,11 +12,11 @@
            
         </nav>
            <div v-if="show" class="election-nav" >
-             <h1 class='btn active' title="position" >{{ category?.replace(/_/g,' ') }}</h1>
-            <!-- <button class='btn' title=" switch SRC Elections"  @click="handleElectionType">Next</button> -->
-            <button class='btn' title=" switch SRC Elections"  @click="()=>{}">Next</button>
+             <h1 class='btn active' title="election" >{{ electionName?.replace(/_/g,' ') }}</h1>
+            <button class='btn' title=" switch SRC Elections"  @click="handleElectionType">Next</button>
+            <!-- <button class='btn' title=" switch SRC Elections"  @click="()=>{}">Next</button> -->
            </div>
-           <label v-if="show" >Select Candidate for <span>{{ category }} {{isActive?.position?.replace(/_/g,' ') }}</span></label>
+           <label v-if="show" >Select Candidate for <span>{{ category }} : {{isActive?.position?.replace(/_/g,' ') }}</span></label>
     </header>
 </template>
 <script setup>
@@ -27,7 +27,7 @@ import Swal from 'sweetalert2';
 const router =useRouter()
 const {logout}=useAuthStore()
 
-const {handleElectionType,category ,isActive,show} =defineProps(['handleElectionType','isActive','show','category'])
+const {electionName ,isActive,show,category} =defineProps(['handleElectionType','isActive','show','electionName','category'])
 
 
 const handleLogout=async()=>{

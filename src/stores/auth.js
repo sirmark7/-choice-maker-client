@@ -18,7 +18,7 @@ export const useAuthStore = defineStore("auth", {
 	async login(userData) {
       try {
         const response = await service.post('/auth/login', userData);
-		console.log(response.data);
+		  console.log(response.data);
         const { token,user} = response.data;
         this.token = token;
         this.user = user;
@@ -49,7 +49,9 @@ export const useAuthStore = defineStore("auth", {
     logout() {
       this.token = null;
       this.user = null;
-	  // localStorage.clear()
+      this.isAuthenticated = false;
+      localStorage.removeItem('userInfo')
+      localStorage.removeItem('token')
 	
     },
   },

@@ -182,6 +182,5 @@ button:hover {
 }
 summary{
   cursor: pointer;
-  
 }
 </style>
