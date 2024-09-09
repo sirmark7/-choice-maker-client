@@ -17,6 +17,9 @@ export const useUserStore = defineStore('user', {
     getUser(state) {
       return state.user
     },
+    getStudentUsers(state){
+        return state.users.filter((user)=>user.role=='student')
+    },
     getUsersCount(state){
       return state.users?.length?state.users?.length:0
     }

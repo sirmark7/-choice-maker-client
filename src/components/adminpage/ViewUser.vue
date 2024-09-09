@@ -28,14 +28,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import {useUserStore} from '../../stores/user'
 import {useLoaderStore} from '../../stores/loader'
 import {TrashBin} from '@vicons/ionicons5';
 import Swal from 'sweetalert2'
-const {getUsers,deleteUser}=useUserStore()
+const {getUsers,deleteUser,getAllUsers}=useUserStore()
 const {setIsLoading}=useLoaderStore()
 const users=ref(getUsers)
+onMounted(async()=>{
+  await  getAllUsers()
+  users.value =getUsers
+})
     const handleDeleteUser=async(info)=> {
       if(!info){
         return  Swal.fire({

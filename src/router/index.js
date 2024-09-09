@@ -18,6 +18,7 @@ import AboutView from '../views/AboutView.vue'
 import DashboardOverview from '../components/adminpage/DashboadOverview.vue'
 import CreateUser from '../components/adminpage/CreateUser.vue'
 import ViewUser from '../components/adminpage/ViewUser.vue'
+import AddCandidate from '../components/adminpage/AddCandidate.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -68,6 +69,11 @@ const router = createRouter({
           path: 'add-election',
           name: 'ElectAdd',
           component: AddElections
+        },
+        {
+          path: 'add-candidate',
+          name: 'AddCandidate',
+          component: AddCandidate
         },
         {
           path: 'view-election',

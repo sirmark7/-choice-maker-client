@@ -9,7 +9,7 @@
             <div class="modal-content">
                 <ul >
                     <li v-for="candidate in candidates" :key="candidate.id" :on-click="()=>handleShowModal(candidate)">
-                    {{ candidate.student.name }} : {{ candidate.voteCount}} votes
+                    {{ candidate?.student?.name }} : {{ candidate?.voteCount}} votes
                     </li>
                 </ul>
                 <p v-show="!candidates.length" >No Candidates </p>

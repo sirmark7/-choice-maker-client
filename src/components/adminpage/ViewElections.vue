@@ -14,12 +14,12 @@
 
           <span>End Date: {{ election.endDate.split('T')[0] }}</span>
           </span>
-            <img src="/images/chevron-down.png" alt="arrow" :class="{active:rotate}"/>
+            <img src="/images/chevron-down.png" alt="arrow" class="arrow" :class="{active:rotate}"/>
           </summary>
 
           <ul>
           <li v-for="position in election.positions" :key="position.id" :onclick="()=>handleShowModal(position)">
-            {{ position.category.name }} {{ position.name }} 
+           <span class="in-text">Category</span>: {{ position.category.name }}  <span class="in-text">Position</span>: {{ position.name }} 
           </li>
         </ul>
       </details>
@@ -38,7 +38,7 @@ import {useElections} from '../../stores/elections'
 import {useCandidates} from '../../stores/candidates'
 import {TrashBin} from '@vicons/ionicons5';
 import Swal from 'sweetalert2'
-const {getEletions,deleteElection}=useElections()
+const {getEletions,deleteElection,getAllElections}=useElections()
 const {getCandidatesVotes}=useCandidates()
 const elections=ref([])
 const candidates=ref([])
@@ -50,9 +50,10 @@ const handleRefresh=()=>{
   window.location.reload()
 }
 const handleRotate=()=>{
-  event.target.classList.toggle('active')
+  document.querySelector('.arrow').classList.toggle('active')
 }
-onMounted(()=>{
+onMounted(async()=>{
+  await getAllElections()
   elections.value=getEletions
   candidates.value=getCandidatesVotes
 })
@@ -83,8 +84,12 @@ const handleDeleteElection=async(info)=>{
 const handleShowModal=async(data)=>{
  
   event.stopPropagation()
+  console.log(data);
+  
   modalTitle.value= data.name && `${data?.category.name} ${data?.name}`
-  selectedCandidates.value= candidates.value?.filter((student)=>student.position.id===data.id)
+  console.log(candidates.value);
+  
+  selectedCandidates.value= candidates.value?.filter((student)=>student?.position?.id===data.id)
   console.log(selectedCandidates.value);
   
   showModal.value=!showModal.value
@@ -171,5 +176,12 @@ button:hover {
 .election-dates >span{
   display: flex;
   gap: 10px ;
+}
+.in-text{
+  font-weight: 600;
+}
+summary{
+  cursor: pointer;
+  
 }
 </style>

@@ -11,10 +11,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(position,i) in positions" :key="position.id">
+        <tr v-for="(position,i) in positions&&positions" :key="position.id">
           <td>{{ i+1 }}</td>
-          <td>{{ position.name }}</td>
-          <td>{{ position.category.name }}</td>
+          <td>{{ position?.name }}</td>
+          <td>{{ position?.category?.name }}</td>
           <td>
             <TrashBin class="icon" :onclick="()=>handleDeletePosition(position.id)" />
           </td>
@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref,onMounted } from 'vue'
 
 import {usePositions} from '../../stores/position'
 import {useLoaderStore} from '../../stores/loader'
@@ -35,6 +35,10 @@ import Swal from 'sweetalert2'
 const {getpositions,deletePosition,getAllPositions}=usePositions()
 const {setIsLoading}=useLoaderStore()
 const positions=ref(getpositions)
+onMounted(async()=>{
+  await getAllPositions()
+  positions.value =getpositions
+})
     const handleDeletePosition=async(info)=> {
       if(!info){
         return  Swal.fire({
@@ -55,8 +59,8 @@ const positions=ref(getpositions)
             icon: 'success',
           
         });
-        
-        positions.value=getpositions
+        positions.value=positions.value.filter((position)=>position.id!==info)
+        // positions.value=getpositions
         }else {
           setIsLoading(false)
         Swal.fire({

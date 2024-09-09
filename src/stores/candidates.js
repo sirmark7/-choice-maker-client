@@ -32,6 +32,21 @@ export const useCandidates = defineStore('candidates', {
         return { success: false, message: error };
       }
     },
+	async getCandidatesByCategory() {
+      try {
+        const response = await service.get('/candidates/category');
+
+        const { message,data} = response.data;
+
+        this.setCandidates(data)
+		console.log(message,data);
+		
+        return { success: true, data };
+      } catch (error) {
+        // console.error('Login error:', error);
+        return { success: false, message: error };
+      }
+    },
 	async getAllCandidatesVotes() {
       try {
         const response = await service.get('/candidates/votes');
@@ -40,6 +55,22 @@ export const useCandidates = defineStore('candidates', {
 
         this.setCandidatesVotes(data)
 		console.log(message,data);
+		
+        return { success: true, data };
+      } catch (error) {
+        // console.error('Login error:', error);
+        return { success: false, message: error };
+      }
+    },
+     async addCandidate(body) {
+      try {
+       
+       const response = await service.post('/candidates',body);
+        
+        const { message,data} = response.data;
+		    console.log(message,data);
+
+        this.setCandidates([...this.allCandidates,data])
 		
         return { success: true, data };
       } catch (error) {

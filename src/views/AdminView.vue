@@ -76,6 +76,7 @@ const navItems = [
     {link:'/admin',name:'Dashboard'},
     {link:'/admin/view-election', name:'View Elections'},
     {link:'/admin/add-election', name:'Create Elections'},
+    {link:'/admin/add-candidate', name:'Add Candidates'},
     {link:'/admin/view-positions', name:'View Positions'},
     {link:'/admin/add-positions', name:'Create Positions'},
     {link:'/admin/view-categories', name:'View Categories'},

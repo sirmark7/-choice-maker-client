@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref ,onMounted} from 'vue'
 
 import {useCategories} from '../../stores/category'
 import {useLoaderStore} from '../../stores/loader'
@@ -33,6 +33,10 @@ import Swal from 'sweetalert2'
 const {getcategories,deleteCategory,getAllCategories}=useCategories()
 const {setIsLoading}=useLoaderStore()
 const categories=ref(getcategories)
+onMounted(async()=>{
+  await getAllCategories()
+  .then(()=>categories.value=getcategories)
+})
     const handleDeletsCategory=async(info)=> {
       if(!info){
         return  Swal.fire({
@@ -53,8 +57,8 @@ const categories=ref(getcategories)
             icon: 'success',
           
         });
-        // categories.value=categories.value.filter((category)=>category.id!==info)
-        categories.value=getcategories
+        categories.value=categories.value.filter((category)=>category.id!==info)
+        // categories.value=getcategories
         }else {
           setIsLoading(false)
         Swal.fire({

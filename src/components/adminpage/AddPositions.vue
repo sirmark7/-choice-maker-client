@@ -1,6 +1,6 @@
 <template>
   <div class="create-election">
-    <h1>Create Election</h1>
+    <h1>Create Position</h1>
     <form @submit.prevent="handleCreatePosition">
       <div class="form-group">
         <label for="name">Position Name</label>
@@ -16,7 +16,7 @@
           </option>
         </select>
       </div>
-      <button type="submit">Create Election</button>
+      <button type="submit">Create Position</button>
     </form>
   </div>
 </template>

@@ -4,7 +4,7 @@ import service from '../services/request';
 export const usePositions = defineStore('positions', {
   // define store variable
   	state: () => ({
-		allPositions: null,
+		allPositions:[],
 	}),
 
   // define a function to change the variable
